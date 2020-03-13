@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Application.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20200312133742_InitialScript")]
-    partial class InitialScript
+    [Migration("20200313090410_InitialScriptUpdate")]
+    partial class InitialScriptUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,8 +28,8 @@ namespace Application.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryName")
-                        .HasColumnType("int");
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -82,9 +82,6 @@ namespace Application.Migrations
                     b.Property<bool>("LikeStatus")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("OwnerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<long>("PostId")
                         .HasColumnType("bigint");
 
@@ -94,11 +91,14 @@ namespace Application.Migrations
                     b.Property<int>("UpdatedBy")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId");
-
                     b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comment");
                 });
@@ -125,9 +125,6 @@ namespace Application.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PostCategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -141,8 +138,6 @@ namespace Application.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PostCategoryId");
 
                     b.HasIndex("UserId");
 
@@ -159,9 +154,6 @@ namespace Application.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("CategoryName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
@@ -174,6 +166,9 @@ namespace Application.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<long>("PostId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
 
@@ -183,6 +178,8 @@ namespace Application.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("PostId");
 
                     b.ToTable("PostCategory");
                 });
@@ -221,27 +218,21 @@ namespace Application.Migrations
 
             modelBuilder.Entity("Application.Persistence.Entity.Comment", b =>
                 {
-                    b.HasOne("Application.Persistence.Entity.User", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Application.Persistence.Entity.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Application.Persistence.Entity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Application.Persistence.Entity.Post", b =>
                 {
-                    b.HasOne("Application.Persistence.Entity.PostCategory", "PostCategory")
-                        .WithMany("Posts")
-                        .HasForeignKey("PostCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Application.Persistence.Entity.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
@@ -254,6 +245,12 @@ namespace Application.Migrations
                     b.HasOne("Application.Persistence.Entity.Category", "Category")
                         .WithMany("PostCategories")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Application.Persistence.Entity.Post", "Post")
+                        .WithMany("PostCategories")
+                        .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -56,13 +56,13 @@ namespace Application.Persistence
             .HasForeignKey(a => a.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-          /*
-          e
-            .HasOne(a => a.PostCategory)
-            .WithMany(a => a.Posts)
-            .HasForeignKey(a => a.PostCategoryId)
-            .OnDelete(DeleteBehavior.Cascade);
-            */
+          
+          e.HasMany(a =>a.PostCategories)
+          .WithOne(a =>a.Post)
+          .HasForeignKey(a =>a.PostId)
+          .OnDelete(DeleteBehavior.Cascade);
+          
+        
         });
 
       modelBuilder
@@ -77,11 +77,12 @@ namespace Application.Persistence
             .HasForeignKey(a => a.CategoryId)
             .OnDelete(DeleteBehavior.Cascade);
 
+/*
           e.HasOne(a =>a.Post)
           .WithMany(a =>a.PostCategories)
           .HasForeignKey(a =>a.PostId)
           .OnDelete(DeleteBehavior.Cascade);
-
+          */
         });
 
       modelBuilder
