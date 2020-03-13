@@ -1,0 +1,10 @@
+D:\ReactUygulamaları\Blog-Backend\Application\bin\Debug\netcoreapp3.1\Application.deps.json
+D:\ReactUygulamaları\Blog-Backend\Application\bin\Debug\netcoreapp3.1\Application.runtimeconfig.json
+D:\ReactUygulamaları\Blog-Backend\Application\bin\Debug\netcoreapp3.1\Application.runtimeconfig.dev.json
+D:\ReactUygulamaları\Blog-Backend\Application\bin\Debug\netcoreapp3.1\Application.dll
+D:\ReactUygulamaları\Blog-Backend\Application\bin\Debug\netcoreapp3.1\Application.pdb
+D:\ReactUygulamaları\Blog-Backend\Application\obj\Debug\netcoreapp3.1\Application.csprojAssemblyReference.cache
+D:\ReactUygulamaları\Blog-Backend\Application\obj\Debug\netcoreapp3.1\Application.AssemblyInfoInputs.cache
+D:\ReactUygulamaları\Blog-Backend\Application\obj\Debug\netcoreapp3.1\Application.AssemblyInfo.cs
+D:\ReactUygulamaları\Blog-Backend\Application\obj\Debug\netcoreapp3.1\Application.dll
+D:\ReactUygulamaları\Blog-Backend\Application\obj\Debug\netcoreapp3.1\Application.pdb
