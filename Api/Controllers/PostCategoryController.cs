@@ -17,28 +17,48 @@ namespace Api.Controllers
     {
     }
 
-    /*
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
+      var entity =
+        await Context
+          .PostCategories
+          .Join(Context.Categories, pc => pc.CategoryId, c => c.Id, (pc, c) => new { pc, c })
+          .Join(Context.Posts,
+          pc2 => pc2.pc.PostId,
+          p => p.Id,
+          (pc2, p) => new { pc2.pc.Id, pc2.c.CategoryName, pc2.pc.PostId })
+          .AsNoTracking()
+          .ToListAsync();
+
+      return Ok(entity);
     }
+
+    /*
+
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
     }
+    */
     [HttpPost]
-    public async Task<IActionResult> Post(Category category)
+    public async Task<IActionResult> Post(PostCategory postCategory)
     {
+      Context.PostCategories.Add (postCategory);
+      await Context.SaveChangesAsync();
+      return Ok(Context.PostCategories.ToList());
     }
+    /*
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
     }
+
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, Category category)
     {
     }
     */
-
   }
 }

@@ -63,6 +63,9 @@ namespace Api.Controllers
       entity.UserId = comment.UserId;
       entity.PostId = comment.PostId;
       entity.ConfirmStatus = comment.ConfirmStatus;
+
+      entity.Updated =DateTime.Now;
+      entity.UpdatedBy =comment.UpdatedBy;
       
       await Context.SaveChangesAsync();
       return NoContent();

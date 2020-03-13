@@ -60,7 +60,7 @@ namespace Api.Controllers
 
       entity.Email = user.Email;
 
-      entity.Updated = user.Updated;
+      entity.Updated =DateTime.Now;
       entity.UpdatedBy = user.UpdatedBy;
 
       await Context.SaveChangesAsync();

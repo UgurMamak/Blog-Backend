@@ -20,7 +20,12 @@ namespace Api.Controllers
      [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-      var entity = await Context.Posts.AsNoTracking().ToListAsync();
+       var entity =
+        await Context
+          .Posts
+          .Join(Context.Users, p => p.UserId, u => u.Id, (p, u) => new { p,u })          
+          .AsNoTracking()
+          .ToListAsync(); 
       return Ok(entity);
     }
 
@@ -61,6 +66,8 @@ namespace Api.Controllers
       entity.Title = post.Content;
       entity.Content=post.Content;
       entity.UserId=post.UserId;
+      entity.Updated =DateTime.Now;
+      entity.UpdatedBy = post.UpdatedBy;
       
       await Context.SaveChangesAsync();
       return NoContent();

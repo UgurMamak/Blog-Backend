@@ -62,6 +62,8 @@ namespace Api.Controllers
       if (entity == null) return NotFound();
 
       entity.CategoryName = category.CategoryName;
+      entity.Updated =DateTime.Now;
+      entity.UpdatedBy = category.UpdatedBy;
       await Context.SaveChangesAsync();
       return NoContent();
     }
