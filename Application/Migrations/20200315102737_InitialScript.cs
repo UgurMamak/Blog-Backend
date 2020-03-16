@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Application.Migrations
 {
-    public partial class InitialScriptUpdate : Migration
+    public partial class InitialScript : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,9 +14,9 @@ namespace Application.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Created = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<int>(nullable: false),
+                    CreatedBy = table.Column<Guid>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<int>(nullable: false),
+                    UpdatedBy = table.Column<Guid>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
                     CategoryName = table.Column<string>(nullable: true)
@@ -32,9 +32,9 @@ namespace Application.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<int>(nullable: false),
+                    CreatedBy = table.Column<Guid>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<int>(nullable: false),
+                    UpdatedBy = table.Column<Guid>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
                     Email = table.Column<string>(nullable: true)
@@ -51,9 +51,9 @@ namespace Application.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Created = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<int>(nullable: false),
+                    CreatedBy = table.Column<Guid>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<int>(nullable: false),
+                    UpdatedBy = table.Column<Guid>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
                     Title = table.Column<string>(nullable: true),
@@ -78,9 +78,9 @@ namespace Application.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Created = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<int>(nullable: false),
+                    CreatedBy = table.Column<Guid>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<int>(nullable: false),
+                    UpdatedBy = table.Column<Guid>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
                     Content = table.Column<string>(nullable: true),
@@ -113,9 +113,9 @@ namespace Application.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Created = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<int>(nullable: false),
+                    CreatedBy = table.Column<Guid>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: false),
-                    UpdatedBy = table.Column<int>(nullable: false),
+                    UpdatedBy = table.Column<Guid>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false),

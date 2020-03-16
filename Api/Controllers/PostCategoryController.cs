@@ -48,13 +48,19 @@ namespace Api.Controllers
       await Context.SaveChangesAsync();
       return Ok(Context.PostCategories.ToList());
     }
-    /*
+    
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-    }
+      var entity = await Context.PostCategories.FindAsync(id);
+      if (entity == null) return NotFound();
 
+      Context.PostCategories.Remove (entity);
+      await Context.SaveChangesAsync();
+      return NoContent();
+    }
+    /*
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, Category category)
     {

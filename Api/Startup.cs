@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Application.Persistence;
+using Api.Controllers;
 
 namespace Api
 {
@@ -49,7 +50,9 @@ namespace Api
           //  app.UseHttpsRedirection();
 
             app.UseRouting();
-
+           
+            //app.UseMiddleware<MiddlewareDeneme>();
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
