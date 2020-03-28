@@ -34,7 +34,12 @@ namespace Api
                     b => b.MigrationsAssembly(typeof(BlogDbContext).Assembly.FullName)));
             services.AddControllers();
 
-            services.AddScoped<BlogDbContext>();
+            services.AddScoped<BlogDbContext>();//
+
+            //Cors Policy
+            services.AddCors();
+
+           
               
             
         }
@@ -52,6 +57,11 @@ namespace Api
             app.UseRouting();
            
             //app.UseMiddleware<MiddlewareDeneme>();
+
+
+              //Global cors policy
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());//****
+            
             
             app.UseAuthorization();
 

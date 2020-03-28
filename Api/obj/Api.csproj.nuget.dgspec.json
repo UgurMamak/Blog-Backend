@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ReactUygulamaları\\Blog-Backend\\Api\\Api.csproj": {}
+    "D:\\ReactUygulamaları\\Blog-Backend\\api\\Api.csproj": {}
   },
   "projects": {
-    "D:\\ReactUygulamaları\\Blog-Backend\\Api\\Api.csproj": {
+    "D:\\ReactUygulamaları\\Blog-Backend\\api\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ReactUygulamaları\\Blog-Backend\\Api\\Api.csproj",
+        "projectUniqueName": "D:\\ReactUygulamaları\\Blog-Backend\\api\\Api.csproj",
         "projectName": "Api",
-        "projectPath": "D:\\ReactUygulamaları\\Blog-Backend\\Api\\Api.csproj",
+        "projectPath": "D:\\ReactUygulamaları\\Blog-Backend\\api\\Api.csproj",
         "packagesPath": "C:\\Users\\Uğur\\.nuget\\packages\\",
-        "outputPath": "D:\\ReactUygulamaları\\Blog-Backend\\Api\\obj\\",
+        "outputPath": "D:\\ReactUygulamaları\\Blog-Backend\\api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -17,12 +17,20 @@ namespace Api.Controllers
     {
     }
 
+    
+
+    public int MetotDeneme(int candidate)
+    {
+      return candidate*10;
+    }
+
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
       var entity = await Context.Users.AsNoTracking().ToListAsync();
       return Ok(entity);
     }
+    
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(Guid id)

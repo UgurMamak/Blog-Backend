@@ -20,6 +20,7 @@ namespace Api.Controllers
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
+      /*
       var entity =
         await Context
           .PostCategories
@@ -30,17 +31,42 @@ namespace Api.Controllers
           (pc2, p) => new { pc2.pc.Id, pc2.c.CategoryName, pc2.pc.PostId })
           .AsNoTracking()
           .ToListAsync();
+          */
+
+        var entity =
+        await Context
+          .PostCategories
+          .Join(Context.Categories, pc => pc.CategoryId, c => c.Id, (pc, c) => new { pc, c })
+          .Join(Context.Posts,
+          pc2 => pc2.pc.PostId,
+          p => p.Id,
+          (pc2, p) => new { pc2.c.Id,pc2.c.CategoryName,pc2.pc.PostId,p.Title})
+          .AsNoTracking()
+          .ToListAsync();
 
       return Ok(entity);
     }
 
-    /*
+    
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
+       var entity =
+        await Context
+          .PostCategories
+          .Join(Context.Categories, pc => pc.CategoryId, c => c.Id, (pc, c) => new { pc, c })
+          .Join(Context.Posts,
+          pc2 => pc2.pc.PostId,
+          p => p.Id,
+          (pc2, p) => new { pc2.c.Id,pc2.c.CategoryName,pc2.pc.PostId,p.Title})
+          .AsNoTracking()
+          .Where(w=>w.Id==id).ToListAsync();
+          if (entity == null) return NotFound();
+      return Ok(entity);
+    
     }
-    */
+    
     [HttpPost]
     public async Task<IActionResult> Post(PostCategory postCategory)
     {
