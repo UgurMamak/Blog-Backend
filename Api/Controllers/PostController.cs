@@ -23,7 +23,7 @@ namespace Api.Controllers
       var entity =
         await Context
           .Posts
-          .Join(Context.Users, p => p.UserId, u => u.Id, (p, u) => new { p, u })
+          .Join(Context.Users, p => p.UserId, u => u.Id, (p, u) => new { p.Id,p.Title,p.Content })
           .AsNoTracking()
           .ToListAsync();
       return Ok(entity);
@@ -36,10 +36,10 @@ namespace Api.Controllers
       var entity =
         await Context
           .Posts
-          .Join(Context.Users, p => p.UserId, u => u.Id, (p, u) => new { p, u })
+          .Join(Context.Users, p => p.UserId, u => u.Id, (p, u) => new { p.Id,p.Title,p.Content })
           .AsNoTracking()
-          .SingleOrDefaultAsync(t => t.p.Id == id);
-
+          .Where(t => t.Id == id)
+          .ToListAsync();
       if (entity == null) return NotFound();
       return Ok(entity);
     }

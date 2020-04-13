@@ -40,7 +40,7 @@ namespace Api.Controllers
           .Join(Context.Posts,
           pc2 => pc2.pc.PostId,
           p => p.Id,
-          (pc2, p) => new { pc2.c.Id,pc2.c.CategoryName,pc2.pc.PostId,p.Title})
+          (pc2, p) => new { pc2.pc.Id,pc2.pc.CategoryId,pc2.c.CategoryName,pc2.pc.PostId,p.Title})
           .AsNoTracking()
           .ToListAsync();
 
@@ -59,9 +59,9 @@ namespace Api.Controllers
           .Join(Context.Posts,
           pc2 => pc2.pc.PostId,
           p => p.Id,
-          (pc2, p) => new { pc2.c.Id,pc2.c.CategoryName,pc2.pc.PostId,p.Title})
+          (pc2, p) => new { pc2.pc.Id,pc2.pc.CategoryId,pc2.c.CategoryName,pc2.pc.PostId,p.Title})
           .AsNoTracking()
-          .Where(w=>w.Id==id).ToListAsync();
+          .Where(w=>w.CategoryId==id).ToListAsync();
           if (entity == null) return NotFound();
       return Ok(entity);
     
