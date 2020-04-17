@@ -13,6 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Application.Persistence;
 using Api.Controllers;
+using Application.Bussiness.Abstract;
+using Application.Bussiness.Concrete;
 
 namespace Api
 {
@@ -28,20 +30,11 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<BlogDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection"), 
-                    b => b.MigrationsAssembly(typeof(BlogDbContext).Assembly.FullName)));
+            services.AddScoped<ICategoryService, CategoryManager>();
             services.AddControllers();
-
-            services.AddScoped<BlogDbContext>();//
-
+            services.AddScoped<BlogDbContext>();
             //Cors Policy
-            services.AddCors();
-
-           
-              
-            
+            services.AddCors();  
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
+//imported
+using Application.Core.Entities;
+
 namespace Application.Persistence.Entity
 {
-    public class AuditableEntity
+    public class AuditableEntity:IEntity
     {
         public DateTime Created { get; set; }
         public Guid CreatedBy { get; set; }
