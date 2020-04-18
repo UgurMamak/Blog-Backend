@@ -34,7 +34,7 @@ namespace Api.Controllers
 
         //CategoryId'ye göre listeleme işlemi
         [HttpGet("getbyid")]
-        public IActionResult GetById(int categoryId)
+        public IActionResult GetById(string categoryId)
         {
             var result = _categoryService.GetById(categoryId);
             if (result.Success)

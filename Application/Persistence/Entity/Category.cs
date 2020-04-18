@@ -4,18 +4,21 @@ using System.Text;
 
 namespace Application.Persistence.Entity
 {
-  public class Category : AuditableEntity
-  {
-    public int Id { get; set; }
+    public class Category : AuditableEntity
+    {
+        public Category()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
 
-    public string CategoryName { get; set; }
+        public string CategoryName { get; set; }
 
-    public List<PostCategory> PostCategories { get; set; }
-    /*
-    public int Id { get; set; }
+        public List<PostCategory> PostCategories { get; set; }
+        /*
+        public int Id { get; set; }
 
-    public int CategoryName { get; set; }
-    public List<Post> Posts { get; set; }
-    */
-  }
+        public int CategoryName { get; set; }
+        public List<Post> Posts { get; set; }
+        */
+    }
 }

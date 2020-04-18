@@ -9,7 +9,7 @@ namespace Application.Bussiness.Abstract
     public interface ICategoryService
     {
         //Category GetById(int categoryId); //Burada bir data dönecek o zaman IDataResult kulanılır.
-        IDataResult<Category> GetById(int categoryId);
+        IDataResult<Category> GetById(string categoryId);
 
         //List<Category> GetList(); Burada da data döneceği için IDataResult kullandık.
         IDataResult<List<Category>> GetList();

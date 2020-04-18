@@ -29,7 +29,7 @@ namespace Application.Bussiness.Concrete
 
         }
 
-        public IDataResult<Category> GetById(int categoryId)
+        public IDataResult<Category> GetById(string categoryId)
         {
             return new SuccessDataResult<Category>(_categoryDal.Get(s => s.Id == categoryId));
         }

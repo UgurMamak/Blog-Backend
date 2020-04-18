@@ -33,7 +33,7 @@ namespace Api.Controllers
     
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(Guid id)
+    public async Task<IActionResult> Get(string id)
     {
       var entity = await Context.Users.AsNoTracking().SingleOrDefaultAsync(t => t.Id == id);
 
@@ -61,7 +61,7 @@ namespace Api.Controllers
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(Guid id, User user)
+    public async Task<IActionResult> Update(string id, User user)
     {
       var entity = await Context.Users.SingleOrDefaultAsync(s => s.Id == id);
       if (entity == null) return NotFound();

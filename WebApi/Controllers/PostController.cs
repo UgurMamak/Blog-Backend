@@ -9,35 +9,32 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
-    //[Route("api/[controller]")]
     [Route("[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class PostController : ControllerBase
     {
-
-        //Operasyonları yazarken bussines'da Dataaccess kullandıysak burada da bussiniess kullanacağız
-        ICategoryService _categoryService;//service enjeksiyonu yapıldı.
-        public CategoryController(ICategoryService categoryService)
+        IPostService _postService;
+        public PostController(IPostService postService)
         {
-            _categoryService = categoryService;
+            _postService = postService;
         }
 
         [HttpGet("getall")]
         public IActionResult GetList()
         {
-            var result = _categoryService.GetList();
+            var result = _postService.GetList();
             if (result.Success)
             {
                 return Ok(result.Data);
             }
-            return  BadRequest(result.Message);
+            return BadRequest(result.Message);
         }
 
         //CategoryId'ye göre listeleme işlemi
         [HttpGet("getbyid")]
-        public IActionResult GetById(string categoryId)
+        public IActionResult GetById(string postId)
         {
-            var result = _categoryService.GetById(categoryId);
+            var result = _postService.GetById(postId);
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -46,9 +43,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Category category)
+        public IActionResult Add(Post post)
         {
-            var result = _categoryService.Add(category);
+            var result = _postService.Add(post);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -58,21 +55,20 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Category category)
+        public IActionResult Update(Post post)
         {
-            var result = _categoryService.Update(category);
+            var result = _postService.Update(post);
             if (result.Success)
             {
                 return Ok(result.Message);
             }
-
             return BadRequest(result.Message);
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Category category)
+        public IActionResult Delete(Post post)
         {
-            var result = _categoryService.Delete(category);
+            var result = _postService.Delete(post);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -80,5 +76,6 @@ namespace WebApi.Controllers
 
             return BadRequest(result.Message);
         }
+
     }
 }

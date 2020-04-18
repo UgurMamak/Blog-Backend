@@ -10,6 +10,7 @@ namespace Application.Persistence.Entity
 {
     public class AuditableEntity:IEntity
     {
+        public string Id { get; set; }
         public DateTime Created { get; set; }
         public Guid CreatedBy { get; set; }
         public DateTime Updated { get; set; }

@@ -4,23 +4,31 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.Persistence.Entity
 {
-  public class Post : AuditableEntity
-  {
-    public long Id { get; set; }
+    public class Post : AuditableEntity
+    {
+        public Post()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
 
-    public string Title { get; set; }
+        //public long Id { get; set; }
 
-    public string Content { get; set; }
+        public string Title { get; set; }
 
-    public Guid UserId { get; set; } //postu ekleyen kullanıcı
+        public string Content { get; set; }
 
-    // public int PostCategoryId { get; set; }
+        public string UserId { get; set; } //postu ekleyen kullanıcı
+        //public Guid UserId { get; set; } //postu ekleyen kullanıcı
 
-    //public PostCategory PostCategory { get; set; }
-    public List<PostCategory> PostCategories { get; set; }
+        // public int PostCategoryId { get; set; }
 
-    public User User { get; set; }
+        //public PostCategory PostCategory { get; set; }
+        public List<PostCategory> PostCategories { get; set; }
 
-    public List<Comment> Comments { get; set; }
-  }
+        public User User { get; set; }
+
+        public List<Comment> Comments { get; set; }
+
+        public List<LikePost> LikePosts { get; set; }
+    }
 }

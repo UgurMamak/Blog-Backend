@@ -50,7 +50,7 @@ namespace Api.Controllers
     
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id)
+    public async Task<IActionResult> Get(string id)
     {
        var entity =
         await Context

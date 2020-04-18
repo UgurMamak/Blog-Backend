@@ -28,7 +28,7 @@ namespace Api.Controllers
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id)
+    public async Task<IActionResult> Get(string id)
     {
       var entity = await Context.Categories.AsNoTracking().SingleOrDefaultAsync(t => t.Id == id);
 
@@ -56,7 +56,7 @@ namespace Api.Controllers
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, Category category)
+    public async Task<IActionResult> Update(string id, Category category)
     {
       var entity = await Context.Categories.SingleOrDefaultAsync(s => s.Id == id);
       if (entity == null) return NotFound();

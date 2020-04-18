@@ -25,7 +25,7 @@ namespace Api.Controllers
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(long id)
+    public async Task<IActionResult> Get(string id)
     {
       var entity = await Context.Comments.AsNoTracking().SingleOrDefaultAsync(t => t.Id == id);
 
@@ -53,7 +53,7 @@ namespace Api.Controllers
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(long id, Comment comment)
+    public async Task<IActionResult> Update(string id, Comment comment)
     {
       var entity = await Context.Comments.SingleOrDefaultAsync(s => s.Id == id);
       if (entity == null) return NotFound();

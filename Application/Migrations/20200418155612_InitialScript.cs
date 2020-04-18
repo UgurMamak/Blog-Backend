@@ -11,8 +11,7 @@ namespace Application.Migrations
                 name: "Category",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<Guid>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: false),
@@ -30,7 +29,7 @@ namespace Application.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<Guid>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: false),
@@ -48,8 +47,7 @@ namespace Application.Migrations
                 name: "Post",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<Guid>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: false),
@@ -58,7 +56,7 @@ namespace Application.Migrations
                     IsActive = table.Column<bool>(nullable: false),
                     Title = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
-                    UserId = table.Column<Guid>(nullable: false)
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -75,8 +73,7 @@ namespace Application.Migrations
                 name: "Comment",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<Guid>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: false),
@@ -86,8 +83,8 @@ namespace Application.Migrations
                     Content = table.Column<string>(nullable: true),
                     ConfirmStatus = table.Column<bool>(nullable: false),
                     LikeStatus = table.Column<bool>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false),
-                    PostId = table.Column<long>(nullable: false)
+                    UserId = table.Column<string>(nullable: true),
+                    PostId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -107,19 +104,50 @@ namespace Application.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PostCategory",
+                name: "LikePost",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<Guid>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<Guid>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
-                    CategoryId = table.Column<int>(nullable: false),
-                    PostId = table.Column<long>(nullable: false)
+                    PostId = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true),
+                    LikeStatus = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LikePost", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LikePost_Post_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Post",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_LikePost_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PostCategory",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<Guid>(nullable: false),
+                    Updated = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<Guid>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    CategoryId = table.Column<string>(nullable: true),
+                    PostId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -149,6 +177,16 @@ namespace Application.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_LikePost_PostId",
+                table: "LikePost",
+                column: "PostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LikePost_UserId",
+                table: "LikePost",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Post_UserId",
                 table: "Post",
                 column: "UserId");
@@ -168,6 +206,9 @@ namespace Application.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Comment");
+
+            migrationBuilder.DropTable(
+                name: "LikePost");
 
             migrationBuilder.DropTable(
                 name: "PostCategory");

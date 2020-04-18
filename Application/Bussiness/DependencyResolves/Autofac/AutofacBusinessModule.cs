@@ -19,6 +19,13 @@ namespace Application.Bussiness.DependencyResolves.Autofac
             //categoryManager'ı ICateoryService olarak kaydet
             builder.RegisterType<CategoryManager>().As<ICategoryService>();  //Birisi ctor'unda ICategoryService isterse bu kod ona CategoryManager'ı verecek.
             builder.RegisterType<EfCategoryDal>().As<ICategoryDal>();
+
+
+            builder.RegisterType<PostManager>().As<IPostService>();  //Birisi ctor'unda ICategoryService isterse bu kod ona CategoryManager'ı verecek.
+            builder.RegisterType<EfPostDal>().As<IPostDal>();
+
+
+
         }
         
     }
