@@ -48,10 +48,10 @@ namespace Application.Persistence
 
             //modelBuilder.ApplyConfiguration(new UserSeedData());
             //modelBuilder.ApplyConfiguration(new CategorySeedData());
-            modelBuilder.ApplyConfiguration(new PostSeedData());
-           /* modelBuilder.ApplyConfiguration(new PostCategorySeedData());
-            modelBuilder.ApplyConfiguration(new CommentSeedData());
-            modelBuilder.ApplyConfiguration(new LikePostSeedData());*/
+            //modelBuilder.ApplyConfiguration(new PostSeedData());
+            //modelBuilder.ApplyConfiguration(new PostCategorySeedData());
+           // modelBuilder.ApplyConfiguration(new CommentSeedData());
+            ///modelBuilder.ApplyConfiguration(new LikePostSeedData());
 
 
 

@@ -11,7 +11,7 @@ namespace Application.Core.DataAccsess
     {
         //CRUD işlemleri tüm tablolarda olduğu için her yerde tek tek yazmak yerine IEntityRepository interface'i oluşturduk 
         T Get(Expression<Func<T, bool>> filter);
-        IList<T> GetList(Expression<Func<T, bool>> filter = null);
+        IList<T> GetList(Expression<Func<T, bool>> filter = null); //filtreli veya filtresiz çekme işlemi var
 
         void Add(T entity);
         void Delete(T entity);

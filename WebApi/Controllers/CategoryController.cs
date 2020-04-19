@@ -16,7 +16,7 @@ namespace WebApi.Controllers
     {
 
         //Operasyonları yazarken bussines'da Dataaccess kullandıysak burada da bussiniess kullanacağız
-        ICategoryService _categoryService;//service enjeksiyonu yapıldı.
+       private ICategoryService _categoryService;//service enjeksiyonu yapıldı.
         public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;

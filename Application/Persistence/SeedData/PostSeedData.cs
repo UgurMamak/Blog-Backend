@@ -13,9 +13,11 @@ namespace Application.Persistence.SeedData
         {
             builder.HasData(
                 new Post { Title="5G Teknolojisinin getirdiği yenilikler",Content="5G teknoloji ile Frekans bandı dha verimli kullanılmaya başlandı.",
-                    Id= "374aef84-52f9-4873-855d-6ab420ba675e"
+                    UserId= "6a818bb9-8bd3-421a-8fd8-7c0d18df8094"
                 },
-                new Post { }
+                new Post { Title="Spor yapmanın faydaları",Content="metabolizmayı güçlendirir. Daha dinç ve zinde olurusunuz.",
+                    UserId= "6a818bb9-8bd3-421a-8fd8-7c0d18df8094"
+                }
                 );
         }
     }

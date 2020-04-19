@@ -11,9 +11,11 @@ namespace Application.Persistence.SeedData
     {
         public void Configure(EntityTypeBuilder<LikePost> builder)
         {
-            builder.HasData(
-                new LikePost { },
-                new LikePost { }
+            builder.HasData( 
+                new LikePost {PostId="34bb076e-36ca-4f6b-bb78-7949daeef2b1",
+                UserId="6a818bb9-8bd3-421a-8fd8-7c0d18df8094",
+                LikeStatus=false }
+                
                 );
         }
     }

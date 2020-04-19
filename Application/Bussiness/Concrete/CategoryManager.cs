@@ -41,14 +41,14 @@ namespace Application.Bussiness.Concrete
         }
 
         public IResult Add(Category category)
-        {          
+        {
             _categoryDal.Add(category);
             return new SuccessResult(Messages.CategoryAdded);
         }
 
         public IResult Delete(Category category)
         {
-            
+
             _categoryDal.Delete(category);
             return new SuccessResult(Messages.CategoryDeleted);
         }

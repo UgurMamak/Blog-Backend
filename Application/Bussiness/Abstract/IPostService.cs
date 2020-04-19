@@ -13,7 +13,5 @@ namespace Application.Bussiness.Abstract
         IResult Add(Post post);
         IResult Delete(Post post);
         IResult Update(Post post);
-
-
     }
 }

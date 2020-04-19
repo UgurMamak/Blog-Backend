@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Application.Persistence.Entity
 {
     public class Comment : AuditableEntity
-    {
+    { 
         public Comment()
         {
             Id = Guid.NewGuid().ToString();

@@ -9,20 +9,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class PostController : ControllerBase
+    public class PostCategoryController : ControllerBase
     {
-      private  IPostService _postService;
-        public PostController(IPostService postService)
+        private IPostCategoryService _postCategoryService;
+        public PostCategoryController(IPostCategoryService postCategoryService)
         {
-            _postService = postService;
+            _postCategoryService = postCategoryService;
         }
+
 
         [HttpGet("getall")]
         public IActionResult GetList()
         {
-            var result = _postService.GetList();
+            var result = _postCategoryService.GetList();
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -32,9 +33,21 @@ namespace WebApi.Controllers
 
         //CategoryId'ye göre listeleme işlemi
         [HttpGet("getbyid")]
-        public IActionResult GetById(string postId)
+        public IActionResult GetById(string postCategoryId)
         {
-            var result = _postService.GetById(postId);
+            var result = _postCategoryService.GetById(postCategoryId);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getlistbycategory")]
+        public IActionResult GetListByCategory(string categoryId)
+        {
+            //CategoryId'ye göre postları listelemek için
+            var result = _postCategoryService.GetListByCategoryId(categoryId);
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -43,21 +56,21 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Post post)
+        public IActionResult Add(PostCategory postCategory)
         {
-            var result = _postService.Add(post);
+            var result = _postCategoryService.Add(postCategory);
             if (result.Success)
             {
                 return Ok(result.Message);
             }
-
             return BadRequest(result.Message);
         }
 
+
         [HttpPost("update")]
-        public IActionResult Update(Post post)
+        public IActionResult Update(PostCategory postCategory)
         {
-            var result = _postService.Update(post);
+            var result = _postCategoryService.Update(postCategory);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -66,16 +79,16 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Post post)
+        public IActionResult Delete(PostCategory postCategory)
         {
-            var result = _postService.Delete(post);
+            var result = _postCategoryService.Delete(postCategory);
             if (result.Success)
             {
                 return Ok(result.Message);
             }
-
             return BadRequest(result.Message);
         }
+
 
     }
 }

@@ -4,14 +4,16 @@ using Application.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Application.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    partial class BlogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200418175356_UserSeedScript")]
+    partial class UserSeedScript
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,21 +138,6 @@ namespace Application.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("LikePost");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "2e5573bb-0a06-439a-a7c6-a387d3940d9e",
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
-                            IsActive = false,
-                            IsDeleted = false,
-                            LikeStatus = false,
-                            PostId = "34bb076e-36ca-4f6b-bb78-7949daeef2b1",
-                            Updated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UpdatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
-                            UserId = "6a818bb9-8bd3-421a-8fd8-7c0d18df8094"
-                        });
                 });
 
             modelBuilder.Entity("Application.Persistence.Entity.Post", b =>
@@ -259,6 +246,30 @@ namespace Application.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "eba5f437-e5ed-4d74-a68b-3303af51a7d5",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Email = "ugurmamak98@gmail.com",
+                            IsActive = false,
+                            IsDeleted = false,
+                            Updated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedBy = new Guid("00000000-0000-0000-0000-000000000000")
+                        },
+                        new
+                        {
+                            Id = "6a818bb9-8bd3-421a-8fd8-7c0d18df8094",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Email = "mehmeteren@gmail.com",
+                            IsActive = false,
+                            IsDeleted = false,
+                            Updated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedBy = new Guid("00000000-0000-0000-0000-000000000000")
+                        });
                 });
 
             modelBuilder.Entity("Application.Persistence.Entity.Comment", b =>

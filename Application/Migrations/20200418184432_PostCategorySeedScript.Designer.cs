@@ -4,14 +4,16 @@ using Application.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Application.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    partial class BlogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200418184432_PostCategorySeedScript")]
+    partial class PostCategorySeedScript
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,21 +138,6 @@ namespace Application.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("LikePost");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "2e5573bb-0a06-439a-a7c6-a387d3940d9e",
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
-                            IsActive = false,
-                            IsDeleted = false,
-                            LikeStatus = false,
-                            PostId = "34bb076e-36ca-4f6b-bb78-7949daeef2b1",
-                            Updated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UpdatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
-                            UserId = "6a818bb9-8bd3-421a-8fd8-7c0d18df8094"
-                        });
                 });
 
             modelBuilder.Entity("Application.Persistence.Entity.Post", b =>
@@ -228,6 +215,32 @@ namespace Application.Migrations
                     b.HasIndex("PostId");
 
                     b.ToTable("PostCategory");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b52cdbc5-5ec8-4b82-a034-619f3cb6ea3d",
+                            CategoryId = "6ab2c130-b07f-4d76-86dd-d9f1d89fac81",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            IsActive = false,
+                            IsDeleted = false,
+                            PostId = "d1013284-4e87-47c6-b28f-47ece4ba9888",
+                            Updated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedBy = new Guid("00000000-0000-0000-0000-000000000000")
+                        },
+                        new
+                        {
+                            Id = "6f628d5f-70f4-4525-8327-e17817b72421",
+                            CategoryId = "68a8cbe3-847f-4cb9-9f40-f89dabaa308c",
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            IsActive = false,
+                            IsDeleted = false,
+                            PostId = "34bb076e-36ca-4f6b-bb78-7949daeef2b1",
+                            Updated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedBy = new Guid("00000000-0000-0000-0000-000000000000")
+                        });
                 });
 
             modelBuilder.Entity("Application.Persistence.Entity.User", b =>
