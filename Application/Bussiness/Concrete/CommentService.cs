@@ -8,11 +8,11 @@ using System.Text;
 
 namespace Application.Bussiness.Concrete
 {
-    public class CommentManager : ICommentService
+    public class CommentService : ICommentService
     {
 
         private ICommentDal _commentDal;
-        public CommentManager(ICommentDal commentDal)
+        public CommentService(ICommentDal commentDal)
         {
             _commentDal = commentDal;
         }

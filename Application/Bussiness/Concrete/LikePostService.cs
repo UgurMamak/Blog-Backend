@@ -8,10 +8,10 @@ using System.Text;
 
 namespace Application.Bussiness.Concrete
 {
-    class LikePostManager : ILikePostService
+    class LikePostService : ILikePostService
     {
         private ILikePostDal _likePostDal;
-        public LikePostManager(ILikePostDal likePostDal)
+        public LikePostService(ILikePostDal likePostDal)
         {
             _likePostDal = likePostDal;
         }

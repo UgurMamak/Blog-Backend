@@ -11,7 +11,7 @@ using Application.Bussiness.Constants;
 
 namespace Application.Bussiness.Concrete
 {
-    public class CategoryManager : ICategoryService
+    public class CategoryService : ICategoryService
     {
         //NOTLAR
         //IcategoryService de yazdığımız metotlar buraya implemente edilir.
@@ -23,7 +23,7 @@ namespace Application.Bussiness.Concrete
 
         //ICategoryDal referans tiptir.  bunu implement eden kimse onu kullanabiliriz(örneği EfCategoryDal gibi)
         //Başka bir ORM geldiğinde ICategoryDalı implement ederse onuda verebiliriz.
-        public CategoryManager(ICategoryDal categoryDal)
+        public CategoryService(ICategoryDal categoryDal)
         {
             _categoryDal = categoryDal;
 

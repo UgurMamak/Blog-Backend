@@ -10,11 +10,11 @@ using System.Text;
 
 namespace Application.Bussiness.Concrete
 {
-    public class PostCategoryManager : IPostCategoryService
+    public class PostCategoryService : IPostCategoryService
     {
 
         private IPostCategoryDal _postCategoryDal;
-        public PostCategoryManager(IPostCategoryDal postCategoryDal)
+        public PostCategoryService(IPostCategoryDal postCategoryDal)
         {
             _postCategoryDal = postCategoryDal;
         }

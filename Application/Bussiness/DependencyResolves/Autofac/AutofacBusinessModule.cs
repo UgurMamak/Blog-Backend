@@ -18,21 +18,21 @@ namespace Application.Bussiness.DependencyResolves.Autofac
         protected override void Load(ContainerBuilder builder)
         {
             //categoryManager'ı ICateoryService olarak kaydet
-            builder.RegisterType<CategoryManager>().As<ICategoryService>();  //Birisi ctor'unda ICategoryService isterse bu kod ona CategoryManager'ı verecek.
+            builder.RegisterType<CategoryService>().As<ICategoryService>();  //Birisi ctor'unda ICategoryService isterse bu kod ona CategoryManager'ı verecek.
             builder.RegisterType<EfCategoryDal>().As<ICategoryDal>();
 
 
-            builder.RegisterType<PostManager>().As<IPostService>();  //Birisi ctor'unda ICategoryService isterse bu kod ona CategoryManager'ı verecek.
+            builder.RegisterType<PostService>().As<IPostService>();  //Birisi ctor'unda ICategoryService isterse bu kod ona CategoryManager'ı verecek.
             builder.RegisterType<EfPostDal>().As<IPostDal>();
 
-            builder.RegisterType<UserManager>().As<IUserService>();
+            builder.RegisterType<UserService>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
 
-            builder.RegisterType<PostCategoryManager>().As<IPostCategoryService>();
+            builder.RegisterType<PostCategoryService>().As<IPostCategoryService>();
             builder.RegisterType<EfPostCategoryDal>().As<IPostCategoryDal>();
 
 
-            builder.RegisterType<CommentManager>().As<ICommentService>();
+            builder.RegisterType<CommentService>().As<ICommentService>();
             builder.RegisterType<EfCommentDal>().As<ICommentDal>();
 
         }

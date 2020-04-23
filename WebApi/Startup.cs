@@ -14,6 +14,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace WebApi
 {
@@ -29,11 +32,17 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-         
+
 
             //services.AddScoped<ICategoryService, CategoryManager>();
-           // services.AddScoped<ICategoryDal, EfCategoryDal>();          
-            services.AddControllers();
+            // services.AddScoped<ICategoryDal, EfCategoryDal>();          
+            //services.AddControllers();
+
+            //Include iþleminde Json'da hata veriyor  o yüzden kütüphane ekledik.
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,26 +4,27 @@ using Application.DataAccsess.Abstract;
 using Application.Persistence.Entity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Application.Bussiness.Concrete
 {
-    public class UserManager : IUserService
+    public class UserService : IUserService
     {
         private IUserDal _userDal;
-        public UserManager(IUserDal userDal)
+        private IPostDal _postDal;
+        public UserService(IUserDal userDal, IPostDal postDal)
         {
             _userDal = userDal;
+            _postDal = postDal;
         }
 
-        public IResult Add(User user)
+        public IDataResult<List<User>> GetList()
         {
-            throw new NotImplementedException();
-        }
+            //return new SuccessDataResult<List<PostCategory>>(_postCategoryDal.GetList(p => p.CategoryId == categoryId).ToList());
 
-        public IResult Delete(User user)
-        {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<User>>(_userDal.GetList().ToList());
+            //return new SuccessDataResult<List<User>>(_userDal.GetListDeneme().ToList());
         }
 
         public IDataResult<User> GetById(string userId)
@@ -31,7 +32,13 @@ namespace Application.Bussiness.Concrete
             throw new NotImplementedException();
         }
 
-        public IDataResult<List<User>> GetList()
+
+        public IResult Add(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IResult Delete(User user)
         {
             throw new NotImplementedException();
         }

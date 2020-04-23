@@ -10,10 +10,10 @@ using System.Text;
 
 namespace Application.Bussiness.Concrete
 {
-    public class PostManager : IPostService
+    public class PostService : IPostService
     {
         private IPostDal _postDal;
-        public PostManager(IPostDal postDal)
+        public PostService(IPostDal postDal)
         {
             _postDal = postDal;
         }
@@ -45,5 +45,7 @@ namespace Application.Bussiness.Concrete
             _postDal.Delete(post);
             return new SuccessResult(Messages.CategoryDeleted);
         }
+
+       
     }
 }

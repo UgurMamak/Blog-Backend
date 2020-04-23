@@ -17,5 +17,19 @@ namespace WebApi.Controllers
         {
             _userService = userService;
         }
+
+
+        [HttpGet("getall")]
+        public IActionResult GetList()
+        {
+            var result = _userService.GetList();
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+
+
     }
 }

@@ -19,6 +19,21 @@ namespace WebApi.Controllers
             _postService = postService;
         }
 
+
+        /*
+        [HttpGet("getdeneme")]
+        public IActionResult GetListDeneme()
+        {
+            var result = _postService.GetListDeneme();
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+        */
+
+
         [HttpGet("getall")]
         public IActionResult GetList()
         {
