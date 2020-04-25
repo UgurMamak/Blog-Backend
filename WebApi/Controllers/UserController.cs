@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -18,7 +18,7 @@ namespace WebApi.Controllers
             _userService = userService;
         }
 
-
+        /*
         [HttpGet("getall")]
         public IActionResult GetList()
         {
@@ -29,6 +29,7 @@ namespace WebApi.Controllers
             }
             return BadRequest(result.Message);
         }
+        */
 
 
     }

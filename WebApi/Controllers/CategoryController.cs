@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Bussiness.Abstract;
 using Application.Persistence.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,7 @@ namespace WebApi.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
+        //Service katmanı yazıldıysa burada serviceler ile apimiz yönlendirilebilecek.
 
         //Operasyonları yazarken bussines'da Dataaccess kullandıysak burada da bussiniess kullanacağız
        private ICategoryService _categoryService;//service enjeksiyonu yapıldı.
@@ -23,6 +25,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("getall")]
+        //[Authorize()] //Her login olan bu operasyonu kullanabilir demek.
+        //[Authorize()] //Her login olan bu operasyonu kullanabilir demek.
+        //[Authorize(Roles ="Admin")]//role verme şekli
         public IActionResult GetList()
         {
             var result = _categoryService.GetList();

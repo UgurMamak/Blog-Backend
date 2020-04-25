@@ -136,21 +136,21 @@ namespace Application.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("LikePost");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = "2e5573bb-0a06-439a-a7c6-a387d3940d9e",
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
-                            IsActive = false,
-                            IsDeleted = false,
-                            LikeStatus = false,
-                            PostId = "34bb076e-36ca-4f6b-bb78-7949daeef2b1",
-                            Updated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UpdatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
-                            UserId = "6a818bb9-8bd3-421a-8fd8-7c0d18df8094"
-                        });
+            modelBuilder.Entity("Application.Persistence.Entity.OperationClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OperationClaim");
                 });
 
             modelBuilder.Entity("Application.Persistence.Entity.Post", b =>
@@ -244,10 +244,25 @@ namespace Application.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("Updated")
@@ -259,6 +274,28 @@ namespace Application.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("Application.Persistence.Entity.UserOperationClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OperationClaimId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OperationClaimId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserOperationClaim");
                 });
 
             modelBuilder.Entity("Application.Persistence.Entity.Comment", b =>
@@ -305,6 +342,20 @@ namespace Application.Migrations
                     b.HasOne("Application.Persistence.Entity.Post", "Post")
                         .WithMany("PostCategories")
                         .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Application.Persistence.Entity.UserOperationClaim", b =>
+                {
+                    b.HasOne("Application.Persistence.Entity.OperationClaim", "OperationClaim")
+                        .WithMany()
+                        .HasForeignKey("OperationClaimId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Application.Persistence.Entity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

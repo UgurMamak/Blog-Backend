@@ -8,6 +8,7 @@ namespace Application.DataAccsess.Abstract
 {
     public interface IUserDal : IEntityRepository<User>
     {
-      //  public IList<User> GetListDeneme();
+        //  public IList<User> GetListDeneme();
+        List<OperationClaim> GetClaims(User user); //
     }
 }

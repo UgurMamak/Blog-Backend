@@ -17,6 +17,13 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Application.Core.Utilities.Security.Jwt;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Application.Core.Utilities.Security.Encyption;
+using Microsoft.IdentityModel.Tokens;
+using Application.Core.Extensions;
+
+//using Microsoft.AspNetCore.Http;
 
 namespace WebApi
 {
@@ -40,9 +47,34 @@ namespace WebApi
 
             //Include iþleminde Json'da hata veriyor  o yüzden kütüphane ekledik.
             services.AddControllers().AddNewtonsoftJson(options =>
-            options.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
-           
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            //******************CORS setting(Api'ye dýþarýdan request(istek) geldiðinde izin vermek için)*************
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin",
+                    builder => builder.WithOrigins("http://localhost:3000"));//reactjs url normaled domain verilir.
+            });
+
+            //******************TOKEN SETTÝNGS*************
+            //JWT için authentication servisinin sisteme eklemesi autharazation , hem authentication, autharazation middlewarelarý ekledik.
+            var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidIssuer = tokenOptions.Issuer,
+                        ValidAudience = tokenOptions.Audience,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+                    };
+                });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,11 +85,20 @@ namespace WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-           // app.UseHttpsRedirection();
+            //CORS için middleware verdik.
+            app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader()); //yayýna çýktýðýmýzda kendi domainimizi vereceðiz.
+
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+
+            //sonradan ekledim.
+            app.UseAuthentication();//anahtar Doðrulamadýr
+
+            app.UseAuthorization();//ne yapabilir.  YETKÝdir.
+
+          
 
             app.UseEndpoints(endpoints =>
             {

@@ -29,6 +29,8 @@ namespace Application.Persistence
         public DbSet<Comment> Comments { get; set; }
 
         public DbSet<LikePost> LikePosts { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims  { get; set; }
 
 
 
@@ -46,11 +48,16 @@ namespace Application.Persistence
             modelBuilder.ApplyConfiguration(new PostConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
 
+            modelBuilder.ApplyConfiguration(new OperationClaimConfiguration());
+            modelBuilder.ApplyConfiguration(new UserOperationClaimConfiguration());
+
+
+
             //modelBuilder.ApplyConfiguration(new UserSeedData());
             //modelBuilder.ApplyConfiguration(new CategorySeedData());
             //modelBuilder.ApplyConfiguration(new PostSeedData());
             //modelBuilder.ApplyConfiguration(new PostCategorySeedData());
-           // modelBuilder.ApplyConfiguration(new CommentSeedData());
+            // modelBuilder.ApplyConfiguration(new CommentSeedData());
             ///modelBuilder.ApplyConfiguration(new LikePostSeedData());
 
 

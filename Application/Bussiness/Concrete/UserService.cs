@@ -19,33 +19,34 @@ namespace Application.Bussiness.Concrete
             _postDal = postDal;
         }
 
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
+
+        }
+
+        public void Add(User user)
+        {
+            _userDal.Add(user);
+        }
+
+        public User GetByMail(string email)
+        {
+            //GetList() kullanıp where ile de çekebiliriz.
+            return _userDal.Get(u => u.Email == email);
+        }
+
+        
+
+        /*
         public IDataResult<List<User>> GetList()
         {
             //return new SuccessDataResult<List<PostCategory>>(_postCategoryDal.GetList(p => p.CategoryId == categoryId).ToList());
-
             return new SuccessDataResult<List<User>>(_userDal.GetList().ToList());
             //return new SuccessDataResult<List<User>>(_userDal.GetListDeneme().ToList());
         }
-
-        public IDataResult<User> GetById(string userId)
-        {
-            throw new NotImplementedException();
-        }
+        */
 
 
-        public IResult Add(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IResult Delete(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IResult Update(User user)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

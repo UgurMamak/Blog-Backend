@@ -1,5 +1,6 @@
 ﻿using Application.Bussiness.Abstract;
 using Application.Bussiness.Concrete;
+using Application.Core.Utilities.Security.Jwt;
 using Application.DataAccsess.Abstract;
 using Application.DataAccsess.Concrete.EntityFramework;
 using Application.Persistence.EntityFramework;
@@ -34,6 +35,12 @@ namespace Application.Bussiness.DependencyResolves.Autofac
 
             builder.RegisterType<CommentService>().As<ICommentService>();
             builder.RegisterType<EfCommentDal>().As<ICommentDal>();
+
+
+            builder.RegisterType<AuthService>().As<IAuthService>();
+
+            //Jwt helper'a gidip bağımlılıklarına bakıyoruz.
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
         }
         
