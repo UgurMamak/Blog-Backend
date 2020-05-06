@@ -18,7 +18,7 @@ namespace WebApi.Controllers
             _userService = userService;
         }
 
-        /*
+        
         [HttpGet("getall")]
         public IActionResult GetList()
         {
@@ -29,7 +29,7 @@ namespace WebApi.Controllers
             }
             return BadRequest(result.Message);
         }
-        */
+        
 
 
     }

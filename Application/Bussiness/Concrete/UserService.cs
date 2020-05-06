@@ -38,14 +38,14 @@ namespace Application.Bussiness.Concrete
 
         
 
-        /*
+        
         public IDataResult<List<User>> GetList()
         {
             //return new SuccessDataResult<List<PostCategory>>(_postCategoryDal.GetList(p => p.CategoryId == categoryId).ToList());
             return new SuccessDataResult<List<User>>(_userDal.GetList().ToList());
             //return new SuccessDataResult<List<User>>(_userDal.GetListDeneme().ToList());
         }
-        */
+        
 
 
     }

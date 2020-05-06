@@ -12,7 +12,7 @@ namespace Application.Persistence.Entity
         {
             Id = Guid.NewGuid().ToString();
         }  
- 
+  
         // public int Id { get; set; }
 
         public string PostId { get; set; } //beğenilen post

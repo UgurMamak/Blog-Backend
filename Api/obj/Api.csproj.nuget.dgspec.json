@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Uğur\\Desktop\\Backend\\Blog-Backend\\Api\\Api.csproj": {}
+    "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Api\\Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Uğur\\Desktop\\Backend\\Blog-Backend\\Api\\Api.csproj": {
+    "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Api\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Uğur\\Desktop\\Backend\\Blog-Backend\\Api\\Api.csproj",
+        "projectUniqueName": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Api\\Api.csproj",
         "projectName": "Api",
-        "projectPath": "C:\\Users\\Uğur\\Desktop\\Backend\\Blog-Backend\\Api\\Api.csproj",
+        "projectPath": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Api\\Api.csproj",
         "packagesPath": "C:\\Users\\Uğur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Uğur\\Desktop\\Backend\\Blog-Backend\\Api\\obj\\",
+        "outputPath": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\Uğur\\Desktop\\Backend\\Blog-Backend\\Application\\Application.csproj": {
-                "projectPath": "C:\\Users\\Uğur\\Desktop\\Backend\\Blog-Backend\\Application\\Application.csproj"
+              "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj"
               }
             }
           }
@@ -98,14 +98,14 @@
         }
       }
     },
-    "C:\\Users\\Uğur\\Desktop\\Backend\\Blog-Backend\\Application\\Application.csproj": {
+    "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Uğur\\Desktop\\Backend\\Blog-Backend\\Application\\Application.csproj",
+        "projectUniqueName": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\Users\\Uğur\\Desktop\\Backend\\Blog-Backend\\Application\\Application.csproj",
+        "projectPath": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj",
         "packagesPath": "C:\\Users\\Uğur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Uğur\\Desktop\\Backend\\Blog-Backend\\Application\\obj\\",
+        "outputPath": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Application.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20200418184432_PostCategorySeedScript")]
-    partial class PostCategorySeedScript
+    [Migration("20200504135400_InitialScrit")]
+    partial class InitialScrit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -140,6 +140,21 @@ namespace Application.Migrations
                     b.ToTable("LikePost");
                 });
 
+            modelBuilder.Entity("Application.Persistence.Entity.OperationClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OperationClaim");
+                });
+
             modelBuilder.Entity("Application.Persistence.Entity.Post", b =>
                 {
                     b.Property<string>("Id")
@@ -215,32 +230,6 @@ namespace Application.Migrations
                     b.HasIndex("PostId");
 
                     b.ToTable("PostCategory");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "b52cdbc5-5ec8-4b82-a034-619f3cb6ea3d",
-                            CategoryId = "6ab2c130-b07f-4d76-86dd-d9f1d89fac81",
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
-                            IsActive = false,
-                            IsDeleted = false,
-                            PostId = "d1013284-4e87-47c6-b28f-47ece4ba9888",
-                            Updated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UpdatedBy = new Guid("00000000-0000-0000-0000-000000000000")
-                        },
-                        new
-                        {
-                            Id = "6f628d5f-70f4-4525-8327-e17817b72421",
-                            CategoryId = "68a8cbe3-847f-4cb9-9f40-f89dabaa308c",
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
-                            IsActive = false,
-                            IsDeleted = false,
-                            PostId = "34bb076e-36ca-4f6b-bb78-7949daeef2b1",
-                            Updated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UpdatedBy = new Guid("00000000-0000-0000-0000-000000000000")
-                        });
                 });
 
             modelBuilder.Entity("Application.Persistence.Entity.User", b =>
@@ -257,10 +246,25 @@ namespace Application.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("Updated")
@@ -272,6 +276,28 @@ namespace Application.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("Application.Persistence.Entity.UserOperationClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OperationClaimId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OperationClaimId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserOperationClaim");
                 });
 
             modelBuilder.Entity("Application.Persistence.Entity.Comment", b =>
@@ -318,6 +344,20 @@ namespace Application.Migrations
                     b.HasOne("Application.Persistence.Entity.Post", "Post")
                         .WithMany("PostCategories")
                         .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Application.Persistence.Entity.UserOperationClaim", b =>
+                {
+                    b.HasOne("Application.Persistence.Entity.OperationClaim", "OperationClaim")
+                        .WithMany()
+                        .HasForeignKey("OperationClaimId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Application.Persistence.Entity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
