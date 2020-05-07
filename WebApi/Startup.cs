@@ -88,7 +88,7 @@ namespace WebApi
             //CORS için middleware verdik.
             app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader()); //yayýna çýktýðýmýzda kendi domainimizi vereceðiz.
 
-            // app.UseHttpsRedirection();
+             app.UseHttpsRedirection();
 
             app.UseRouting();
 

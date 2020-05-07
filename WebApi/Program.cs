@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application.Bussiness.DependencyResolves.Autofac;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -18,7 +19,7 @@ namespace WebApi
         {
             CreateHostBuilder(args).Build().Run();
         }
-
+        
         public static IHostBuilder CreateHostBuilder(string[] args) =>
            Host.CreateDefaultBuilder(args)
                  .UseServiceProviderFactory(new AutofacServiceProviderFactory())
@@ -31,10 +32,11 @@ namespace WebApi
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-
-
-        
-     
+    
+    /*
+        public static IWebHostBuilder CreateHostBuilder(string[] args) =>
+               WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+          */
 
     }
 }
