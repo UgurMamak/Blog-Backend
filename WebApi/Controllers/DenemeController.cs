@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,7 +30,7 @@ namespace WebApi.Controllers
 
             if (image == null)
             {
-                return BadRequest("burada");
+                return BadRequest("null");
 
             }
             Random a = new Random();
@@ -48,10 +49,14 @@ namespace WebApi.Controllers
             //apiFile.ResimYolu = apiFile.ResimDosyasi.FileName;
 
             //return BadRequest();
-            return Ok();
+            return Ok("başarılı");
         }
-
-
+       
+        [HttpGet("getimg")]
+        public async Task<IActionResult> GetImage()
+        {               
+            return Ok("https://localhost:5001/img/1a460431-216a-49ff-9733-3cf3ebd0dadb.jpg");
+        }
 
 
 

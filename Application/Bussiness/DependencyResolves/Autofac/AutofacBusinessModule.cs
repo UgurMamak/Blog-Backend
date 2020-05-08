@@ -1,10 +1,13 @@
 ﻿using Application.Bussiness.Abstract;
 using Application.Bussiness.Concrete;
+using Application.Core.Utilities.Interceptors;
 using Application.Core.Utilities.Security.Jwt;
 using Application.DataAccsess.Abstract;
 using Application.DataAccsess.Concrete.EntityFramework;
 using Application.Persistence.EntityFramework;
 using Autofac;
+using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -38,9 +41,22 @@ namespace Application.Bussiness.DependencyResolves.Autofac
 
 
             builder.RegisterType<AuthService>().As<IAuthService>();
-
             //Jwt helper'a gidip bağımlılıklarına bakıyoruz.
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+
+            /*
+
+            //Bu servislerin nesneler için ınterceptor çalıştımak gerekiyor
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();//assembly e ulaşır
+
+           // assemblydeki tüm tipleri kayırt et 
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors(new ProxyGenerationOptions()
+                {
+                    
+                    Selector = new AspectInterceptorSelector()
+                }).SingleInstance();
+                */
 
         }
         

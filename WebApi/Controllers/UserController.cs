@@ -15,14 +15,12 @@ namespace WebApi.Controllers
     public class UserController : ControllerBase
     {
        private IUserService _userService;
-     //private readonly   IWebHostEnvironment _environment;
-        private readonly IHostingEnvironment _environment;
 
-       // IHostingEnvironment
-        public UserController(IUserService userService, IHostingEnvironment environment)
+
+      
+        public UserController(IUserService userService)
         {
-            _userService = userService;
-            _environment = environment;
+            _userService = userService;     
         }
 
         
@@ -36,35 +34,6 @@ namespace WebApi.Controllers
             }
             return BadRequest(result.Message);
         }
-
-
-        [HttpPost("uploadfile")]
-        public async Task<ActionResult> UploadFile(FIleUploadAPI image,string deger)
-        {
-            /*
-            if(image==null)
-            {
-                return BadRequest("burada");
-                
-            }
-            */
-            var resimler = Path.Combine(_environment.WebRootPath, "img");
-            var imageName = "firstImage.jpg";
-            if (image.files.Length > 0)
-            {
-                using (var fileStream = new FileStream(Path.Combine(resimler, imageName), FileMode.Create))
-                {
-                    await image.files.CopyToAsync(fileStream);
-                }
-            }
-            //apiFile.ResimYolu = apiFile.ResimDosyasi.FileName;
-
-            return Ok("oldu");
-        }
     }
 
-    public class FIleUploadAPI
-    {
-        public IFormFile files { get; set; }
-    }
 }

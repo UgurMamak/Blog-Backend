@@ -448,3 +448,6 @@ C:\Users\Uğur\Desktop\BLOG PROJESİ\Blog-Backend\Api\obj\Debug\netcoreapp3.1\st
 C:\Users\Uğur\Desktop\BLOG PROJESİ\Blog-Backend\Api\obj\Debug\netcoreapp3.1\staticwebassets\Api.StaticWebAssets.xml
 C:\Users\Uğur\Desktop\BLOG PROJESİ\Blog-Backend\Api\obj\Debug\netcoreapp3.1\Api.dll
 C:\Users\Uğur\Desktop\BLOG PROJESİ\Blog-Backend\Api\obj\Debug\netcoreapp3.1\Api.pdb
+C:\Users\Uğur\Desktop\BLOG PROJESİ\Blog-Backend\Api\bin\Debug\netcoreapp3.1\Castle.Core.dll
+C:\Users\Uğur\Desktop\BLOG PROJESİ\Blog-Backend\Api\bin\Debug\netcoreapp3.1\FluentValidation.dll
+C:\Users\Uğur\Desktop\BLOG PROJESİ\Blog-Backend\Api\bin\Debug\netcoreapp3.1\Autofac.Extras.DynamicProxy.dll
