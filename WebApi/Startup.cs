@@ -22,6 +22,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Application.Core.Utilities.Security.Encyption;
 using Microsoft.IdentityModel.Tokens;
 using Application.Core.Extensions;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
 
 //using Microsoft.AspNetCore.Http;
 
@@ -88,17 +90,20 @@ namespace WebApi
             //CORS için middleware verdik.
             app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader()); //yayýna çýktýðýmýzda kendi domainimizi vereceðiz.
 
-            // app.UseHttpsRedirection();
+             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+
+            
+           
 
             //sonradan ekledim.
             app.UseAuthentication();//anahtar Doðrulamadýr
 
             app.UseAuthorization();//ne yapabilir.  YETKÝdir.
 
-          
+            app.UseStaticFiles(); // For the wwwroot folder (url ile static dosyalara eriþmek için eklemnmesi gereken middleware)
 
             app.UseEndpoints(endpoints =>
             {

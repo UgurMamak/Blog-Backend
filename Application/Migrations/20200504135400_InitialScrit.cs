@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Application.Migrations
 {
-    public partial class InitialScript : Migration
+    public partial class InitialScrit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,6 +26,19 @@ namespace Application.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OperationClaim",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OperationClaim", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -36,6 +49,11 @@ namespace Application.Migrations
                     UpdatedBy = table.Column<Guid>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Status = table.Column<bool>(nullable: false),
+                    PasswordSalt = table.Column<byte[]>(nullable: true),
+                    PasswordHash = table.Column<byte[]>(nullable: true),
                     Email = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -63,6 +81,32 @@ namespace Application.Migrations
                     table.PrimaryKey("PK_Post", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Post_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserOperationClaim",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(nullable: true),
+                    OperationClaimId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserOperationClaim", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserOperationClaim_OperationClaim_OperationClaimId",
+                        column: x => x.OperationClaimId,
+                        principalTable: "OperationClaim",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserOperationClaim_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
@@ -200,6 +244,16 @@ namespace Application.Migrations
                 name: "IX_PostCategory_PostId",
                 table: "PostCategory",
                 column: "PostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserOperationClaim_OperationClaimId",
+                table: "UserOperationClaim",
+                column: "OperationClaimId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserOperationClaim_UserId",
+                table: "UserOperationClaim",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -214,10 +268,16 @@ namespace Application.Migrations
                 name: "PostCategory");
 
             migrationBuilder.DropTable(
+                name: "UserOperationClaim");
+
+            migrationBuilder.DropTable(
                 name: "Category");
 
             migrationBuilder.DropTable(
                 name: "Post");
+
+            migrationBuilder.DropTable(
+                name: "OperationClaim");
 
             migrationBuilder.DropTable(
                 name: "User");

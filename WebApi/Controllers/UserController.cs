@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Bussiness.Abstract;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,12 +15,15 @@ namespace WebApi.Controllers
     public class UserController : ControllerBase
     {
        private IUserService _userService;
+
+
+      
         public UserController(IUserService userService)
         {
-            _userService = userService;
+            _userService = userService;     
         }
 
-        /*
+        
         [HttpGet("getall")]
         public IActionResult GetList()
         {
@@ -29,8 +34,6 @@ namespace WebApi.Controllers
             }
             return BadRequest(result.Message);
         }
-        */
-
-
     }
+
 }

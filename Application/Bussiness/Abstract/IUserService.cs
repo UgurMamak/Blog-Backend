@@ -15,6 +15,8 @@ namespace Application.Bussiness.Abstract
         IResult Delete(User user);//*****
         IResult Update(User user);//*****
         */
+		
+		IDataResult<List<User>> GetList();//*****
 
         //operasyon ekledik.
         List<OperationClaim> GetClaims(User user); //user'ın sahip olduğu claimleri(yetkileri) rolleri getirmek için oluşturduk.

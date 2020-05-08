@@ -8,6 +8,10 @@ using System.Linq;
 using Application.Persistence.EntityFramework;
 using Application.Core.Utilities.Results;
 using Application.Bussiness.Constants;
+using Application.Bussiness.ValidationRules.FluentValidation;
+using FluentValidation;
+using Application.Core.CrossCuttingConcers.Validation;
+using Application.Core.Aspects.Autofac;
 
 namespace Application.Bussiness.Concrete
 {
@@ -40,8 +44,23 @@ namespace Application.Bussiness.Concrete
             return new SuccessDataResult<List<Category>>(_categoryDal.GetList().ToList());
         }
 
+        [ValidationAspect(typeof(CategoryValidator),Priority =1)]
         public IResult Add(Category category)
         {
+            //Bu alanı normalde böyle kullanabiliriz fakat her metot için böyle yazılmaktansa bu kod bloğu merkezileştirilerek daha pratik kullanılabilir.
+            // Merkezileştirmek için Core katmanında validationTool classı oluşturdum.
+            /*
+            CategoryValidator categoryValidation = new CategoryValidator();
+            var result = categoryValidation.Validate(category);
+            if(!result.IsValid)
+            {
+                throw new ValidationException(result.Errors);
+            }
+            */
+
+            //yukarıda yazılanlar aşağıdaki şekilde refactor edilerek daha düzeni hale getirildi.
+           //ValidationTool.Validate(new CategoryValidator(),category); attirubute yazmak yerine bu nuda kullanabiliriz.
+
             _categoryDal.Add(category);
             return new SuccessResult(Messages.CategoryAdded);
         }
