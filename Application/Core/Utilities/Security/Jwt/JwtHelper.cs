@@ -31,11 +31,13 @@ namespace Application.Core.Utilities.Security.Jwt
             //Configurasyon dosyasında TokenOptions Kısımını oku demek. Ve onu TokenOptions nesnesine bind et.
             //Bu şekilde _tokenOptions nesnesi olmuş oluyo.
             _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
-            _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
+           // _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
         }
 
         public AccessToken CreateToken(User user, List<OperationClaim> operationClaims)
         {
+             _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
+
             //Bu yapı standart olduğu için ve biz bunu projenin her yerinde kullanabiliriz bunun için SecurityKeyHelper adında class oluşturarak ordan çağıracağız.
             //var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOptions.SecurityKey));
             var securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);//Securitykey helper classındki metota securitykey göndererek şifrelenmiş seckey alacak.

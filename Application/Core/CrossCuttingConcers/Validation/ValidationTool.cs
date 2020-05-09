@@ -14,6 +14,7 @@ namespace Application.Core.CrossCuttingConcers.Validation
             if (!result.IsValid)
             {
                 throw new ValidationException(result.Errors); //sarı uyarı veriyo düzeltmeye çalış
+               // new ValidationException(result.Errors); //sarı uyarı veriyo düzeltmeye çalış
             }
         }
     }

@@ -12,6 +12,7 @@ using Application.Bussiness.ValidationRules.FluentValidation;
 using FluentValidation;
 using Application.Core.CrossCuttingConcers.Validation;
 using Application.Core.Aspects.Autofac;
+using Application.Bussiness.BusinessAspects.Autofac;
 
 namespace Application.Bussiness.Concrete
 {
@@ -38,7 +39,8 @@ namespace Application.Bussiness.Concrete
             return new SuccessDataResult<Category>(_categoryDal.Get(s => s.Id == categoryId));
         }
 
-
+        //Role verme işlemi
+        [SecuredOperation("SystemAdmin")] //Operator User //[SecuredOperation("Product.List,Admin")]
         public IDataResult<List<Category>> GetList()
         {
             return new SuccessDataResult<List<Category>>(_categoryDal.GetList().ToList());

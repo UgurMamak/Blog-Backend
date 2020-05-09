@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Bussiness.Abstract;
+using Application.Core.Extensions;
 using Application.Persistence.Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -27,9 +28,12 @@ namespace WebApi.Controllers
         [HttpGet("getall")]
         //[Authorize()] //Her login olan bu operasyonu kullanabilir demek.
         //[Authorize()] //Her login olan bu operasyonu kullanabilir demek.
-        //[Authorize(Roles ="Admin")]//role verme şekli
+        //[Authorize(Roles ="SystemAdmin")]//role verme şekli
         public IActionResult GetList()
         {
+            ///User.ClaimRoles(); //Kulanıcıya ait rolleri getirir.
+            //(Core katmanındaki extensions dizininde bulunan ClaimsPricipalExtensions metotdun da yazıldı.)
+
             var result = _categoryService.GetList();
             if (result.Success)
             {
