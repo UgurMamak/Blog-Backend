@@ -1,5 +1,6 @@
 ﻿using Application.Bussiness.Abstract;
 using Application.Bussiness.Constants;
+using Application.Core.Aspects.Autofac.Transaction;
 using Application.Core.Utilities.Results;
 using Application.Core.Utilities.Security.Hashing;
 using Application.Core.Utilities.Security.Jwt;
@@ -50,13 +51,15 @@ namespace Application.Bussiness.Concrete
             return new SuccessResult();
         }
 
+
+        /*
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
         {
             //metota verilen string password olamasa da olur. Çünkü password değeri userForRegisterDto içinde var.
             //string password kullanıcının texte girdiği haslenmemiş parola
 
             byte[] passwordHash, passwordSalt; //işlem bitince bunlar oluşacak
-           
+
             //bu çalışınca hash ve salt değerleri dönecek. bu operasyon dönünce yukarıda tanımlanan değerlerde değişecek.
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
@@ -70,8 +73,9 @@ namespace Application.Bussiness.Concrete
                 Status = true
             };
             _userService.Add(user);
-            return new SuccessDataResult<User>(user, Messages.UserRegistered); 
+            return new SuccessDataResult<User>(user, Messages.UserRegistered);
         }
+        */
 
         //Token yaratacak
         public IDataResult<AccessToken> CreateAccessToken(User user)
@@ -85,6 +89,45 @@ namespace Application.Bussiness.Concrete
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
 
-        
+
+        //******************************2
+        /*
+        public IDataResult<User> AddUserOperationClaim(UserForRegisterDto userForRegisterDto,string userId)
+        {
+             _userService.AddUserRole(userForRegisterDto,userId);
+             return new SuccessDataResult<User>();
+        }*/
+
+
+        [TransactionScopeAspect]
+        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password,string imgName)
+        {
+
+            //metota verilen string password olamasa da olur. Çünkü password değeri userForRegisterDto içinde var.
+            //string password kullanıcının texte girdiği haslenmemiş parola
+
+            byte[] passwordHash, passwordSalt; //işlem bitince bunlar oluşacak
+
+            //bu çalışınca hash ve salt değerleri dönecek. bu operasyon dönünce yukarıda tanımlanan değerlerde değişecek.
+            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+
+            var user = new User
+            {
+                Email = userForRegisterDto.Email,
+                FirstName = userForRegisterDto.FirstName,
+                LastName = userForRegisterDto.LastName,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Status = true,
+                ImgName=imgName
+            };
+           _userService.Add(user);
+            
+            var registerSave= new SuccessDataResult<User>(user, Messages.UserRegistered);
+            _userService.AddUserRole(userForRegisterDto, registerSave.Data.Id);//kayıt işleminden sonra role tablosuna kaydetme işlemine geçer.
+            //return new SuccessResult(registerSave.Message);
+            return new SuccessDataResult<User>(user, Messages.UserRegistered);
+        }
+
     }
 }

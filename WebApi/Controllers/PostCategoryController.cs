@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Bussiness.Abstract;
+using Application.Persistence.Dtos;
 using Application.Persistence.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -54,7 +55,7 @@ namespace WebApi.Controllers
             }
             return BadRequest(result.Message);
         }
-
+        /*
         [HttpPost("add")]
         public IActionResult Add(PostCategory postCategory)
         {
@@ -65,7 +66,7 @@ namespace WebApi.Controllers
             }
             return BadRequest(result.Message);
         }
-
+        */
 
         [HttpPost("update")]
         public IActionResult Update(PostCategory postCategory)
@@ -88,6 +89,20 @@ namespace WebApi.Controllers
             }
             return BadRequest(result.Message);
         }
+
+
+
+        [HttpPost("add")]
+        public IActionResult Add(PostCategoryCreateDto postCategoryCreateDto)
+        {
+            var result = _postCategoryService.Add(postCategoryCreateDto);
+            if (result.Success)
+            {
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
+
 
 
     }

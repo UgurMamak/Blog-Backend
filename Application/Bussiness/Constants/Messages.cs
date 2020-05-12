@@ -14,6 +14,11 @@ namespace Application.Bussiness.Constants
         public static string CategoryDeleted = "Kategori başarıyla silindi";
         public static string CategoryUpdated = "Kategori başarıyla güncellendi";
 
+
+        public static string PostAdded = "Post başarıyla eklendi";
+        public static string PostDeleted = "Post başarıyla silindi";
+        public static string PostUpdated = "Post başarıyla güncellendi";
+
         public static string UserNotFound = "Kullanıcı Bulunamadı";
         public static string PasswordError = "Şifre Hatalı";
         public static string SuccessfulLogin ="Sisteme Giriş Başarılı";

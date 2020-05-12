@@ -1,4 +1,5 @@
 ﻿using Application.Core.DataAccsess;
+using Application.Persistence.Dtos;
 using Application.Persistence.Entity;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace Application.DataAccsess.Abstract
 {
     public interface IPostDal : IEntityRepository<Post>
     {
-       //sadece post tablosuna ait özellikler burada tanımlanabilir.
+        //sadece post tablosuna ait özellikler burada tanımlanabilir.
+      
     }
 }

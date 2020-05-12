@@ -13,8 +13,8 @@ namespace Application.Core.CrossCuttingConcers.Validation
             var result = validator.Validate(entity);
             if (!result.IsValid)
             {
-                throw new ValidationException(result.Errors); //sarı uyarı veriyo düzeltmeye çalış
-               // new ValidationException(result.Errors); //sarı uyarı veriyo düzeltmeye çalış
+              //  throw new ValidationException(result.Errors); //sarı uyarı veriyo düzeltmeye çalış
+               throw new ValidationException(result.Errors); //sarı uyarı veriyo düzeltmeye çalış
             }
         }
     }

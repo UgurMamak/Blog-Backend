@@ -23,6 +23,8 @@ namespace Application.Persistence.Entity
         public byte[] PasswordHash { get; set; }
         public string Email { get; set; }//*********
 
+        public string ImgName { get; set; }//Resimlerin adýný tutmak için oluþturuldu.
+
         public List<Post> Posts { get; set; }//**********
         public List<LikePost> LikePosts { get; set; }//*******
     }

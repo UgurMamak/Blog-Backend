@@ -1,4 +1,5 @@
 ﻿using Application.Core.Utilities.Results;
+using Application.Persistence.Dtos;
 using Application.Persistence.Entity;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Application.Bussiness.Abstract
         IDataResult<List<PostCategory>> GetList();
         IDataResult<PostCategory> GetById(string postCategoryId);
         IDataResult<List<PostCategory>> GetListByCategoryId(string categoryId);//categorye göre postları getirmek için
-        IResult Add(PostCategory postCategory);
+        IResult Add(PostCategoryCreateDto postCategoryCreateDto);
         IResult Delete(PostCategory postCategory);
         IResult Update(PostCategory postCategory);
     }

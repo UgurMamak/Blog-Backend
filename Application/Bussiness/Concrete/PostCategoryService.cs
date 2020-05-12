@@ -1,7 +1,9 @@
 ﻿using Application.Bussiness.Abstract;
 using Application.Bussiness.Constants;
+using Application.Core.Aspects.Autofac.Transaction;
 using Application.Core.Utilities.Results;
 using Application.DataAccsess.Abstract;
+using Application.Persistence.Dtos;
 using Application.Persistence.Entity;
 using System;
 using System.Collections.Generic;
@@ -19,6 +21,7 @@ namespace Application.Bussiness.Concrete
             _postCategoryDal = postCategoryDal;
         }
 
+        
         public IDataResult<List<PostCategory>> GetList()
         {
             return new SuccessDataResult<List<PostCategory>>(_postCategoryDal.GetList().ToList());
@@ -33,12 +36,14 @@ namespace Application.Bussiness.Concrete
             //CategoryId'ye göre listeleme işlemi için yazıldı.
             return new SuccessDataResult<List<PostCategory>>(_postCategoryDal.GetList(p => p.CategoryId == categoryId).ToList());
         }
+        /*
         public IResult Add(PostCategory postCategory)
         {
 
             _postCategoryDal.Add(postCategory);
             return new SuccessResult(Messages.CategoryAdded);
         }
+        */
 
         public IResult Delete(PostCategory postCategory)
         {
@@ -53,5 +58,17 @@ namespace Application.Bussiness.Concrete
         }
 
 
+        [TransactionScopeAspect]
+        public IResult Add(PostCategoryCreateDto postCategoryCreateDto)
+        {
+            var postCategory = new PostCategory {
+                CategoryId=postCategoryCreateDto.CategoryId,
+                PostId=postCategoryCreateDto.PostId
+            };
+            _postCategoryDal.Add(postCategory);
+            return new SuccessResult(Messages.CategoryAdded);
+        }
+
+       
     }
 }

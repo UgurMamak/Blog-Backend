@@ -1,4 +1,6 @@
 ﻿using Application.Core.DataAccsess;
+using Application.Core.Utilities.Results;
+using Application.Persistence.Dtos;
 using Application.Persistence.Entity;
 using System;
 using System.Collections.Generic;
@@ -10,5 +12,10 @@ namespace Application.DataAccsess.Abstract
     {
         //  public IList<User> GetListDeneme();
         List<OperationClaim> GetClaims(User user); //
+
+        void AddUserRole(UserForRegisterDto userForRegister, string userId);
+
+      
+
     }
 }

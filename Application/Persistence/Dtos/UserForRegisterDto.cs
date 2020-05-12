@@ -11,5 +11,6 @@ namespace Application.Persistence.Dtos
         public string Password { get; set; }//Db'de password diye bir alan yok ama kullanıcı password olarak bunu girecek. Dto bu işe yarar.
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Role { get; set; }//***********
     }
 }

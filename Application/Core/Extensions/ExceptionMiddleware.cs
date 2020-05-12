@@ -11,7 +11,7 @@ namespace Application.Core.Extensions
 {
     public class ExceptionMiddleware
     {
-        
+
         private RequestDelegate _next; //middleware yazmak için request delegasyonuna ihtiyaç vardır.
 
         public ExceptionMiddleware(RequestDelegate next)
@@ -35,6 +35,7 @@ namespace Application.Core.Extensions
         //oluşturulan operasyon hata verirse 
         private Task HandleExceptionAsync(HttpContext httpContext, Exception e)
         {
+            /*
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
@@ -43,18 +44,42 @@ namespace Application.Core.Extensions
             {
                 message = e.Message;
             }
-           /*
-           if(e.GetType()==typeof(SecuredOperation))
-            {
-                message = e.Message;
-            }
-           */
+        
 
             return httpContext.Response.WriteAsync(new ErrorDetails
             {
                 StatusCode = httpContext.Response.StatusCode,
                 Message = message
             }.ToString());
+            */
+
+
+            httpContext.Response.ContentType = "application/json";
+            httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            string message = "Internal Server Error Burada";
+
+            if (e is EntryPointNotFoundException) httpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+
+            else if (e is UnauthorizedAccessException) httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+
+            
+            if (e.GetType() == typeof(ValidationException))
+            { message = e.Message; }
+
+
+            if (e.GetType() == typeof(SecuredException))
+            { message = e.Message; }
+
+
+            return httpContext.Response.WriteAsync(new ErrorDetails
+            {
+                StatusCode = httpContext.Response.StatusCode,
+                Message = message
+            }.ToString());
+
+
+
+
         }
     }
 }

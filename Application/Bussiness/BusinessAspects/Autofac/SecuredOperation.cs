@@ -8,8 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
-
-
+using FluentValidation.Results;
 
 namespace Application.Bussiness.BusinessAspects.Autofac
 {
@@ -37,7 +36,22 @@ namespace Application.Bussiness.BusinessAspects.Autofac
                     return;
                 }
             }
-            throw new Exception(Messages.AuthorizationDenied);
+            throw new SecuredException(Messages.AuthorizationDenied);
+            
         }
     }
+
+
+
+    public class SecuredException : Exception
+    {
+        private IList<ValidationFailure> errors;
+
+        public SecuredException(string message) : base(message)
+        {
+           
+        }
+    }
+ 
+
 }
