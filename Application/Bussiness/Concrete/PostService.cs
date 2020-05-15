@@ -4,6 +4,7 @@ using Application.Core.Aspects.Autofac.Transaction;
 using Application.Core.Utilities.Results;
 using Application.DataAccsess.Abstract;
 using Application.Persistence.Dtos;
+using Application.Persistence.Dtos.PostDtos;
 using Application.Persistence.Entity;
 using System;
 using System.Collections.Generic;
@@ -15,55 +16,71 @@ namespace Application.Bussiness.Concrete
     public class PostService : IPostService
     {
         private IPostDal _postDal;
-        public PostService(IPostDal postDal)
+        private IPostCategoryService _postCategoryService;
+        public PostService(IPostDal postDal, IPostCategoryService postCategoryService)
         {
             _postDal = postDal;
+            _postCategoryService = postCategoryService;
         }
+
+        [TransactionScopeAspect]
         public IDataResult<List<Post>> GetList()
-        {
+        {          
             return new SuccessDataResult<List<Post>>(_postDal.GetList().ToList());
         }
 
-        public IDataResult<Post> GetById(string postId)
+
+        [TransactionScopeAspect]//+++
+        public IResult Update(PostUpdateDto post)
         {
-            return new SuccessDataResult<Post>(_postDal.Get(p => p.Id == postId));
+            var post2 = new Post {
+                Content=post.Content,
+                Title=post.Title,
+                Updated=DateTime.Now,
+                Id=post.Id,
+                UserId=post.UserId
+            };
+           // _postDal.Update(post2);
+            _postDal.Update2(post);
+            //return new SuccessResult(Messages.PostUpdated);
+            var postUpdate= new SuccessResult(Messages.PostUpdated);
+           // var postCategory = new PostCategory {PostId=post.Id,CategoryId=post.CategoryId };
+            var postCategory = new PostCategory {PostId=post.Id,CategoryId=post.CategoryId, Id=post.PostCategoryId };
+            _postCategoryService.Update(postCategory);
+            return new SuccessResult(Messages.PostUpdated);            
         }
 
-
-
-        public IResult Update(Post post)
-        {
-            _postDal.Update(post);
-            return new SuccessResult(Messages.PostUpdated);
-        }
-        /*
-        public IResult Add(Post post)
-        {
-            _postDal.Add(post);
-            return new SuccessResult(Messages.CategoryAdded);
-        }
-        */
-
+        [TransactionScopeAspect]
         public IResult Delete(Post post)
         {
             _postDal.Delete(post);
             return new SuccessResult(Messages.PostDeleted);
         }
 
-        [TransactionScopeAspect]
-        public IResult Add(PostCreateDto postCreateDto,string imageName)
+        [TransactionScopeAspect]//+++
+        public IDataResult<Post> Add(PostCreateDto postCreateDto, string imageName)
         {
             var post = new Post
             {
                 Title = postCreateDto.Title,
                 Content = postCreateDto.Content,
-                ImageName=imageName,
-                UserId=postCreateDto.UserId
+                ImageName = imageName,
+                UserId = postCreateDto.UserId,
+                Created=DateTime.Now
             };
             _postDal.Add(post);
-            return new SuccessResult(Messages.PostAdded);
+            var postSave = new SuccessDataResult<Post>(post, Messages.UserRegistered);
+            var postCategory = new PostCategoryCreateDto { PostId = postSave.Data.Id, CategoryId = postCreateDto.CategoryId };
+            _postCategoryService.Add(postCategory);
+            return new SuccessDataResult<Post>(post, Messages.PostAdded);
         }
+       
 
+        [TransactionScopeAspect]//+++(post detay işlemi)
+        public IDataResult<List<PostListDto>> GetByPostId(string postId)
+        {
+            return new SuccessDataResult<List<PostListDto>>(_postDal.GetAll(p => p.PostId == postId).ToList());
+        }
 
     }
 }

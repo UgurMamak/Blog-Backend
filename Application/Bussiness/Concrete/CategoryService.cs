@@ -14,6 +14,7 @@ using Application.Core.CrossCuttingConcers.Validation;
 using Application.Core.Aspects.Autofac;
 using Application.Bussiness.BusinessAspects.Autofac;
 using Application.Core.Aspects.Autofac.Validation;
+using Application.Persistence.Dtos;
 
 namespace Application.Bussiness.Concrete
 {
@@ -43,7 +44,7 @@ namespace Application.Bussiness.Concrete
         //Role verme işlemi
       //  [SecuredOperation("SystemAdmin")] //Operator User //[SecuredOperation("Product.List,Admin")]
         public IDataResult<List<Category>> GetList()
-        {
+        {        
             return new SuccessDataResult<List<Category>>(_categoryDal.GetList().ToList());
         }
 
@@ -80,5 +81,6 @@ namespace Application.Bussiness.Concrete
             _categoryDal.Update(category);
             return new SuccessResult(Messages.CategoryUpdated);
         }
+
     }
 }

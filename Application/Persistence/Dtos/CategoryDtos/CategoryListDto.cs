@@ -6,10 +6,10 @@ using System.Text;
 
 namespace Application.Persistence.Dtos
 {
-    class CategoryListDto:IDto
+   public class CategoryListDto
     {
         public string Id { get; set; }       
         public string CategoryName { get; set; }
-        public List<PostCategory> PostCategories { get; set; }
+       // public List<PostCategory> PostCategories { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace WebApi.Controllers
             _categoryService = categoryService;
         }
 
-        /*
+        
         [HttpGet("getall")]
         //[Authorize()] //Her login olan bu operasyonu kullanabilir demek.
         //[Authorize()] //Her login olan bu operasyonu kullanabilir demek.
@@ -41,7 +41,7 @@ namespace WebApi.Controllers
                 return Ok(result.Data);
             }
             return  BadRequest(result.Message);
-        }*/
+        }
 
         //CategoryId'ye göre listeleme işlemi
         [HttpGet("getbyid")]
@@ -95,16 +95,7 @@ namespace WebApi.Controllers
 
 
 
-        [HttpGet("getall")]  
-        public IActionResult GetList()
-        {           
-            var result = _categoryService.GetList();
-            if (result.Success)
-            {
-                return Ok(result.Data);
-            }
-            return BadRequest(result.Message);
-        }
+   
 
 
     }

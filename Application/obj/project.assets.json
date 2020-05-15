@@ -6725,23 +6725,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Uğur\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Uğur Mamak\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj",
+      "projectUniqueName": "C:\\Users\\Uğur Mamak\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj",
       "projectName": "Application",
-      "projectPath": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj",
-      "packagesPath": "C:\\Users\\Uğur\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\obj\\",
+      "projectPath": "C:\\Users\\Uğur Mamak\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj",
+      "packagesPath": "C:\\Users\\Uğur Mamak\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Uğur Mamak\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Uğur\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Uğur Mamak\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6841,7 +6837,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

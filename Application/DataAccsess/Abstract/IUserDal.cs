@@ -15,7 +15,5 @@ namespace Application.DataAccsess.Abstract
 
         void AddUserRole(UserForRegisterDto userForRegister, string userId);
 
-      
-
     }
 }
