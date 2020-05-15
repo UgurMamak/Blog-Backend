@@ -17,5 +17,11 @@ namespace Application.Bussiness.Abstract
         IResult Add(CommentCreateDto commentCreateDto);
         IResult Delete(Comment comment);
         IResult Update(CommentUpdateDto comment);
+
+        IResult DeleteByPostId(string postId);
+
+      
+
+
     }
 }

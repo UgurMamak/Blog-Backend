@@ -24,8 +24,9 @@ namespace Application.Bussiness.Abstract
         IDataResult<List<PostCardListDto>> GetAll();
         IDataResult<List<PostCardListDto>> GetByCategoryId(string categoryId);
         IDataResult<List<PostCardListDto>> GetByUserId(string userId);
+        IResult DeleteByPostId(string postId);
 
-       
+
 
 
 

@@ -66,23 +66,33 @@ namespace Application.Bussiness.Concrete
         //******************************************************************
 
             //Tüm postları listelemek için
+
+        //++++++++
         public IDataResult<List<PostCardListDto>> GetAll()
         {
             return new SuccessDataResult<List<PostCardListDto>>(_postCategoryDal.GetAll().ToList());
         }
 
+        //++++++++
         public IDataResult<List<PostCardListDto>> GetByCategoryId(string categoryId)
         {
             return new SuccessDataResult<List<PostCardListDto>>(_postCategoryDal.GetAll(p => p.CategoryId == categoryId).ToList());
         }
 
+
+        //++++++++
         public IDataResult<List<PostCardListDto>> GetByUserId(string userId)
         {
             return new SuccessDataResult<List<PostCardListDto>>(_postCategoryDal.GetAll(p => p.UserId == userId).ToList());
         }
 
-       
-        
+
+        [TransactionScopeAspect]//+++++++
+        public IResult DeleteByPostId(string postId)//
+        {
+            _postCategoryDal.DeleteById(w => w.PostId == postId);
+            return new SuccessResult(Messages.CommentDeleted);
+        }
 
     }
 }

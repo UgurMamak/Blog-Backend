@@ -70,23 +70,36 @@ namespace WebApi.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpPost("delete")]
-        public IActionResult Delete(Post post)
-        {
-            var result = _postService.Delete(post);
-            if (result.Success) { return Ok(result.Message); }
-            return BadRequest(result.Message);
-        }
 
-        [HttpPost("update")]
-        public IActionResult Update([FromForm] PostUpdateDto post)
+        [HttpPost("update")]//++++
+        public async Task<IActionResult> Update([FromForm] PostUpdateDto post)
         {
+            //eğer resim değiştirirse image ve imagename propları dolu olmak zorunda 
+            if (post.Image != null && post.ImageName != null)//resim değiştirmek isterse bu işlemler yapılacak.
+            {
+                var resimler = Path.Combine(_environment.WebRootPath, "postImage");//dizin bilgisi
+                System.IO.File.Delete(resimler + "\\" + post.ImageName);
+                post.ImageName = $"{ Guid.NewGuid()}.jpg";
+                using (var fileStream = new FileStream(Path.Combine(resimler, post.ImageName), FileMode.Create))
+                { await post.Image.CopyToAsync(fileStream); }
+            }
+
             var result = _postService.Update(post);
             if (result.Success) { return Ok(result.Message); }
             return BadRequest(result.Message);
         }
 
-
-
+        [HttpPost("delete")]//+++++
+        public IActionResult Delete([FromForm]Post post)//sadece Id değeri ile silinecek.
+        {
+            var result = _postService.Delete(post);
+            if (result.Success)
+            {
+                var resimler = Path.Combine(_environment.WebRootPath, "postImage");//dizin bilgisi
+                System.IO.File.Delete(resimler + "\\" + post.ImageName);
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
     }
 }

@@ -70,10 +70,13 @@ namespace Application.Bussiness.Concrete
             throw new NotImplementedException();
         }
 
-      
+        [TransactionScopeAspect]//+++++++
+        public IResult DeleteByPostId(string postId)//
+        {
+            _commentDal.DeleteById(w=>w.PostId==postId);
+            return new SuccessResult(Messages.CommentDeleted);
+        }
 
-       
 
-       
     }
 }

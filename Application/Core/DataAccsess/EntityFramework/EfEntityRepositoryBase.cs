@@ -34,6 +34,21 @@ namespace Application.Core.DataAccsess.EntityFramework
             }
         }
 
+        //id ye göre silme işlemi
+        public void DeleteById(Expression<Func<TEntity, bool>> filter = null)
+        {
+            using (var context = new TContext())
+            {
+                var entity=context.Set<TEntity>().Where(filter).ToList();
+                foreach (var item in entity)
+                {
+                    context.Set<TEntity>().Remove(item);
+                }
+                context.SaveChanges();
+            }
+        }
+
+
         public TEntity Get(Expression<Func<TEntity, bool>> filter)
         {
             using (var context = new TContext())

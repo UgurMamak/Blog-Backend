@@ -17,10 +17,12 @@ namespace Application.Bussiness.Concrete
     {
         private IPostDal _postDal;
         private IPostCategoryService _postCategoryService;
-        public PostService(IPostDal postDal, IPostCategoryService postCategoryService)
+        private ICommentService _commentService;
+        public PostService(IPostDal postDal, IPostCategoryService postCategoryService,ICommentService commentService)
         {
             _postDal = postDal;
             _postCategoryService = postCategoryService;
+            _commentService = commentService;
         }
 
         [TransactionScopeAspect]
@@ -53,7 +55,9 @@ namespace Application.Bussiness.Concrete
         [TransactionScopeAspect]
         public IResult Delete(Post post)
         {
-            _postDal.Delete(post);
+            _postCategoryService.DeleteByPostId(post.Id);
+            _commentService.DeleteByPostId(post.Id);
+            _postDal.DeleteById(w=>w.Id==post.Id);                    
             return new SuccessResult(Messages.PostDeleted);
         }
 
