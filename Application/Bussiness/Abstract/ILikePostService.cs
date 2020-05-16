@@ -9,19 +9,10 @@ namespace Application.Bussiness.Abstract
 {
     public interface ILikePostService
     {
-    
-        // IDataResult<LikePost> GetById(string postId);
-
-        //  IResult Delete(LikePost likePos);
-        // IResult Update(LikePost likePos);
-
-
         IResult Add(LikePostCreateDto likePost);
         IDataResult<List<LikePost>> GetList();
-
         IDataResult<LikePostNumberStatusDto> GetNumberStatus(string postId);//like ve dislike sayıları çekmek için yazdım.
-
         string LikePostExists(LikePostCreateDto likePost);//gelen datanın db olup olmadığına bakılır.
-
+        IResult Delete(LikePostCreateDto likePost);
     }
 }

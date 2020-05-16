@@ -28,6 +28,7 @@ namespace Application.Bussiness.Constants
         public static string SuccessfulLogin ="Sisteme Giriş Başarılı";
 
         public static string LikePostAdded = "Post Beğenildi.";
+        public static string LikePostDeleted = "Beğeni Silindi.";
 
 
 
