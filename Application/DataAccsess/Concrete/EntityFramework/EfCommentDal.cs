@@ -14,9 +14,6 @@ namespace Application.DataAccsess.Concrete.EntityFramework
 {
     public class EfCommentDal : EfEntityRepositoryBase<Comment, BlogDbContext>, ICommentDal
     {
-
-
-
         public IList<CommentListDto> GetByPostId(Expression<Func<CommentListDto, bool>> filter = null)
         {
             using (var context = new BlogDbContext())
@@ -39,7 +36,6 @@ namespace Application.DataAccsess.Concrete.EntityFramework
                     .ToList();
                 return entity;
             }
-
         }
         
         public void Update2(CommentUpdateDto comment)

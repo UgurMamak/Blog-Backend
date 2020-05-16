@@ -97,10 +97,7 @@ namespace Application.Persistence.EntityFramework
                 context.SaveChanges();
 
             }
-
         }
-
-
 
     }
 }
