@@ -38,17 +38,17 @@ namespace Application.Bussiness.Concrete
             //sonuc==2 ise hiçbirşey yapma
             var sonuc = "";           
             //postId ve userId göndererek daha önce işlem yapılıp yaplmadığını döndüm.
-            var isThere = _likePostDal.Get(w => w.PostId == likePost.PostId && w.UserId == likePost.UserId);
+            var isThere = _likePostDal.GetList(w => w.PostId == likePost.PostId && w.UserId == likePost.UserId).Count();
             //kayıt yoksa yeni gelen değeri ekle
-            if (isThere==null)
+            if (isThere==0)
             {
                 sonuc = "0";
                 return sonuc;
             }
             //postId userId ve likestatu durular gönderilir.
-            var likestatu = _likePostDal.Get(w => w.PostId == likePost.PostId && w.UserId == likePost.UserId && w.LikeStatus==likePost.LikeStatus);
+            var likestatu = _likePostDal.GetList(w => w.PostId == likePost.PostId && w.UserId == likePost.UserId && w.LikeStatus==likePost.LikeStatus).Count();
             //eğer gelen data db yoksa güncelleme yap
-            if(likestatu==null)
+            if(likestatu==0)
             {
                 sonuc = "1";
                 return sonuc;
@@ -77,7 +77,7 @@ namespace Application.Bussiness.Concrete
         {
             //userId ve postId değerlerine göre girilen kayıt silinir.
            //var entity= _likePostDal.Get(w => w.PostId == likePost.PostId && w.UserId == likePost.UserId && w.LikeStatus == likePost.LikeStatus);                   
-            _likePostDal.DeleteById(w => w.PostId == likePost.PostId && w.UserId == likePost.UserId && w.LikeStatus == likePost.LikeStatus);
+            _likePostDal.DeleteById(w => w.PostId == likePost.PostId && w.UserId == likePost.UserId);
             return new SuccessResult();
         }    
     }

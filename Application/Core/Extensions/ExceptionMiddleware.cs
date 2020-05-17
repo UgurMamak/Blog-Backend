@@ -54,32 +54,25 @@ namespace Application.Core.Extensions
             */
 
 
+          
+
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            string message = "Internal Server Error Burada";
+            string message = "Internal Server Error Exception Middleware(ben ekledim)";
 
-            if (e is EntryPointNotFoundException) httpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
-
-            else if (e is UnauthorizedAccessException) httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-
-            
+            //if (e is EntryPointNotFoundException) httpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+           // else if (e is UnauthorizedAccessException) httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;        
             if (e.GetType() == typeof(ValidationException))
             { message = e.Message; }
 
-
             if (e.GetType() == typeof(SecuredException))
-            { message = e.Message; }
-
+            { message = e.Message; /*httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;*/ }
 
             return httpContext.Response.WriteAsync(new ErrorDetails
             {
                 StatusCode = httpContext.Response.StatusCode,
                 Message = message
             }.ToString());
-
-
-
-
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using Application.Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Application.Core.DataAccsess.EntityFramework
 {
@@ -23,7 +24,21 @@ namespace Application.Core.DataAccsess.EntityFramework
                 context.SaveChanges();
             }
         }
+        /*
+        public void MultipleAdd(TEntity entity)
+        {
+            using (var context = new TContext())
+            {
+                var s = new TEntity();
 
+                var sorgu = context.Set<TEntity>(){ entity};
+
+                var addedEntity = context.Entry(entity);
+                addedEntity.State = EntityState.Added;
+                context.SaveChanges();
+            }
+        }
+        */
         public  void Delete(TEntity entity)
         {
             using (var context = new TContext())

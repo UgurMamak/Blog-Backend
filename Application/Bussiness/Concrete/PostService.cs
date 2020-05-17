@@ -81,9 +81,10 @@ namespace Application.Bussiness.Concrete
        
 
         [TransactionScopeAspect]//+++(post detay işlemi)
-        public IDataResult<List<PostListDto>> GetByPostId(string postId)
+        public IDataResult<List<PostListDto2>> GetByPostId(string postId)
         {
-            return new SuccessDataResult<List<PostListDto>>(_postDal.GetAll(p => p.PostId == postId).ToList());
+            //return new SuccessDataResult<List<PostListDto>>(_postDal.GetAll(p => p.PostId == postId).ToList());
+            return new SuccessDataResult<List<PostListDto2>>(_postDal.GetAll2(p => p.PostId == postId).ToList());
         }
 
     }

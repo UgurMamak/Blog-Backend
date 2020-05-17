@@ -20,18 +20,6 @@ namespace WebApi.Controllers
             _postCategoryService = postCategoryService;
         }
 
-
-        [HttpGet("getall2")]
-        public IActionResult GetList()
-        {
-            var result = _postCategoryService.GetList();
-            if (result.Success)
-            {
-                return Ok(result.Data);
-            }
-            return BadRequest(result.Message);
-        }
-
         //CategoryId'ye göre listeleme işlemi
         [HttpGet("getbyid")]//+++
         public IActionResult GetById(string postCategoryId)
@@ -68,15 +56,15 @@ namespace WebApi.Controllers
         }
 //*******************************************************************************************
        
-        /*
-        [HttpPost("add")]
+        
+        [HttpPost("add")]//+++
         public IActionResult Add(PostCategoryCreateDto postCategoryCreateDto)
         {
             var result = _postCategoryService.Add(postCategoryCreateDto);
             if (result.Success) { return Ok(result.Message); }
             return BadRequest(result.Message);
         }
-        */
+        
 
 
         [HttpPost("delete")]//
@@ -95,6 +83,18 @@ namespace WebApi.Controllers
             if (result.Success) { return Ok(result.Data); }
             return BadRequest(result.Message);
         }
+
+
+
+        [HttpGet("getall2")] //tüm postları listeleme +++
+        public IActionResult GetAll2()
+        {
+            var result = _postCategoryService.GetAll2();
+            if (result.Success) { return Ok(result.Data); }
+            return BadRequest(result.Message);
+        }
+
+
 
         [HttpGet("getbycategoryId")]//seçilen kategoriye göre listeleme +++
         public IActionResult GetByCategoryId(string categoryId)

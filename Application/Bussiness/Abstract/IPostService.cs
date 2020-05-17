@@ -18,7 +18,7 @@ namespace Application.Bussiness.Abstract
       
 
         //*************************************************   
-        IDataResult<List<PostListDto>> GetByPostId(string postId);
+        IDataResult<List<PostListDto2>> GetByPostId(string postId);
         IDataResult<Post> Add(PostCreateDto postCreateDto, string imageName);
         IResult Delete(Post post);
         IResult Update(PostUpdateDto post);

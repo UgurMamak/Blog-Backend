@@ -1,5 +1,6 @@
 ﻿using Application.Core.Utilities.Results;
 using Application.Persistence.Dtos;
+using Application.Persistence.Dtos.PostCategoryDtos;
 using Application.Persistence.Dtos.PostDtos;
 using Application.Persistence.Entity;
 using System;
@@ -21,9 +22,10 @@ namespace Application.Bussiness.Abstract
 
 
         //********************************
+        IDataResult<List<PostCardList2Dto>> GetAll2();//iç içe gösterlmiş hali
         IDataResult<List<PostCardListDto>> GetAll();
-        IDataResult<List<PostCardListDto>> GetByCategoryId(string categoryId);
-        IDataResult<List<PostCardListDto>> GetByUserId(string userId);
+        IDataResult<List<PostCardList2Dto>> GetByCategoryId(string categoryId);
+        IDataResult<List<PostCardList2Dto>> GetByUserId(string userId);
         IResult DeleteByPostId(string postId);
 
 

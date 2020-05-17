@@ -19,25 +19,22 @@ namespace Application.Bussiness.BusinessAspects.Autofac
 
         public SecuredOperation(string roles)
         {
-            _roles = roles.Split(',');
-       
+            _roles = roles.Split(',');      
             _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
-
         }
 
         protected override void OnBefore(IInvocation invocation)
         {
             //kullanıcının talep ettiği yetkileri getirecek.
             var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
-            foreach (var role in _roles)
+            foreach (var role in _roles) 
             {
                 if (roleClaims.Contains(role))
                 {
                     return;
                 }
             }
-            throw new SecuredException(Messages.AuthorizationDenied);
-            
+            throw new SecuredException(Messages.AuthorizationDenied);            
         }
     }
 

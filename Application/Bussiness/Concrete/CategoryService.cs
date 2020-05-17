@@ -42,7 +42,8 @@ namespace Application.Bussiness.Concrete
         }
 
         //Role verme işlemi
-      //  [SecuredOperation("SystemAdmin")] //Operator User //[SecuredOperation("Product.List,Admin")]
+        //[SecuredOperation("Operator")] //Operator User //[SecuredOperation("Product.List,Admin")]
+        //[SecuredOperation("SystemAdmin")] //Operator User //[SecuredOperation("Product.List,Admin")]
         public IDataResult<List<Category>> GetList()
         {        
             return new SuccessDataResult<List<Category>>(_categoryDal.GetList().ToList());

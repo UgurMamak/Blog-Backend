@@ -4,6 +4,7 @@ using Application.Core.Aspects.Autofac.Transaction;
 using Application.Core.Utilities.Results;
 using Application.DataAccsess.Abstract;
 using Application.Persistence.Dtos;
+using Application.Persistence.Dtos.PostCategoryDtos;
 using Application.Persistence.Dtos.PostDtos;
 using Application.Persistence.Entity;
 using System;
@@ -58,7 +59,8 @@ namespace Application.Bussiness.Concrete
                 CategoryId = postCategoryCreateDto.CategoryId,
                 PostId = postCategoryCreateDto.PostId
             };
-            _postCategoryDal.Add(postCategory);
+            //_postCategoryDal.Add(postCategory);
+            _postCategoryDal.MultipleAdd(postCategoryCreateDto);
             return new SuccessResult(Messages.CategoryAdded);
             
         }
@@ -70,20 +72,28 @@ namespace Application.Bussiness.Concrete
         //++++++++
         public IDataResult<List<PostCardListDto>> GetAll()
         {
-            return new SuccessDataResult<List<PostCardListDto>>(_postCategoryDal.GetAll().ToList());
+            return new SuccessDataResult<List<PostCardListDto>>(_postCategoryDal.GetAll().ToList());            
+        }
+
+        public IDataResult<List<PostCardList2Dto>> GetAll2()
+        {
+            return new SuccessDataResult<List<PostCardList2Dto>>(_postCategoryDal.GetAll2().ToList());
         }
 
         //++++++++
-        public IDataResult<List<PostCardListDto>> GetByCategoryId(string categoryId)
+        public IDataResult<List<PostCardList2Dto>> GetByCategoryId(string categoryId)
         {
-            return new SuccessDataResult<List<PostCardListDto>>(_postCategoryDal.GetAll(p => p.CategoryId == categoryId).ToList());
+            return new SuccessDataResult<List<PostCardList2Dto>>(_postCategoryDal.GetByCategoryId(categoryId).ToList());
+           // return new SuccessDataResult<List<PostCardListDto>>(_postCategoryDal.GetAll2(p => p.CategoryId == categoryId).ToList());
         }
 
 
         //++++++++
-        public IDataResult<List<PostCardListDto>> GetByUserId(string userId)
+        public IDataResult<List<PostCardList2Dto>> GetByUserId(string userId)
         {
-            return new SuccessDataResult<List<PostCardListDto>>(_postCategoryDal.GetAll(p => p.UserId == userId).ToList());
+            return new SuccessDataResult<List<PostCardList2Dto>>(_postCategoryDal.GetAll2(p=>p.UserId==userId).ToList());
+
+           // return new SuccessDataResult<List<PostCardListDto>>(_postCategoryDal.GetAll(p => p.UserId == userId).ToList());
         }
 
 

@@ -2,6 +2,7 @@
 using Application.DataAccsess.Abstract;
 using Application.Persistence.Dtos;
 using Application.Persistence.Dtos.CommentDtos;
+using Application.Persistence.Dtos.PostCategoryDtos;
 using Application.Persistence.Dtos.PostDtos;
 using Application.Persistence.Entity;
 using Microsoft.EntityFrameworkCore;
@@ -24,21 +25,6 @@ namespace Application.Persistence.EntityFramework
         {
             using (var context = new BlogDbContext())
             {
-                /*
-                var entity = context.Comments.Where(w => w.PostId == "522b9b77-3235-43eb-8273-fb9530dae956")
-                    .Select(se => new CommentListDto
-                    {
-                        Id = se.Id,
-                        Content = se.Content,
-                        UserId = se.UserId,
-                        FirstName = se.User.FirstName,
-                        LastName = se.User.LastName,
-                        ImageName = se.User.ImgName,
-                        created = se.Created,
-                        PostId = se.PostId
-
-                    }).ToList();
-                    */
                 return
                  context.PostCategories
                     .Include(c => c.Category)
@@ -78,6 +64,91 @@ namespace Application.Persistence.EntityFramework
                     }).Where(filter).ToList();
             }
         }
+        public IList<PostListDto2> GetAll2(Expression<Func<PostListDto2, bool>> filter = null)
+        {
+            using (var context = new BlogDbContext())
+            {
+                var entity = context.Posts.Include(cm => cm.Comments).Include(pc => pc.PostCategories).ThenInclude(c => c.Category)
+                    .Select(se => new PostListDto2
+                    {
+                        PostId = se.Id,
+                        Title = se.Title,
+                        ImageName = se.ImageName,
+                        Content = se.Content,
+                        Created = Convert.ToDateTime(se.Created),
+
+                        UserId = se.UserId,
+                        FirstName = se.User.FirstName,
+                        LastName = se.User.LastName,
+
+                        postCategoryListDtos = new List<PostCategoryListDto>(
+                          context.PostCategories
+                          .Where(w => w.PostId == se.Id)
+                          .Select(se => new PostCategoryListDto { CategoryId = se.CategoryId, CategoryName = se.Category.CategoryName })),
+
+                        Comments = new List<CommentListDto>(
+                           context.Comments.Where(w => w.PostId == se.Id)
+                                                        .Select(se => new CommentListDto
+                                                        {
+                                                            Id = se.Id,
+                                                            Content = se.Content,
+                                                            UserId = se.UserId,
+                                                            FirstName = se.User.FirstName,
+                                                            LastName = se.User.LastName,
+                                                            ImageName = se.User.ImgName,
+                                                            created = se.Created,
+                                                            PostId = se.PostId
+                                                        }))
+                    })
+                    .Where(filter)
+                    .ToList();
+                return entity;
+
+                /*
+                return
+                    
+                 context.PostCategories
+                    .Include(c => c.Category)
+                    .Include(p => p.Post)
+                    .ThenInclude(cm => cm.Comments)
+                    .Select(se => new PostListDto
+                    {
+                        PostId = se.PostId,
+                        Title = se.Post.Title,
+                        ImageName = se.Post.ImageName,
+                        Content = se.Post.Content,
+                        Created = Convert.ToDateTime(se.Post.Created),
+                        // Created = DateTime.Now, 
+
+                        UserId = se.Post.UserId,
+                        FirstName = se.Post.User.FirstName,
+                        LastName = se.Post.User.LastName,
+
+                        CategoryId = se.CategoryId,
+                        CategoryName = se.Category.CategoryName,
+                        // Comments=new List<CommentListDto>(entity)
+                        Comments = new List<CommentListDto>(
+                           context.Comments.Where(w => w.PostId == se.PostId)
+                                                        .Select(se => new CommentListDto
+                                                        {
+                                                            Id = se.Id,
+                                                            Content = se.Content,
+                                                            UserId = se.UserId,
+                                                            FirstName = se.User.FirstName,
+                                                            LastName = se.User.LastName,
+                                                            ImageName = se.User.ImgName,
+                                                            created = se.Created,
+                                                            PostId = se.PostId
+
+                                                        }))
+
+                    }).Where(filter).ToList();*/
+            }
+        }
+
+
+
+
 
         public void Update2(PostUpdateDto postUpdateDto)
         {

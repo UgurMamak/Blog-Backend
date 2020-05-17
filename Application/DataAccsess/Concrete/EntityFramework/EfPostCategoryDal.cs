@@ -1,16 +1,21 @@
 ﻿using Application.Core.DataAccsess.EntityFramework;
 using Application.DataAccsess.Abstract;
 using Application.Persistence;
-
+using Application.Persistence.Dtos;
+using Application.Persistence.Dtos.PostCategoryDtos;
 using Application.Persistence.Dtos.PostDtos;
 using Application.Persistence.Entity;
+using Castle.Core.Internal;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-
+using Newtonsoft.Json;
+using System.Threading;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 namespace Application.DataAccsess.Concrete.EntityFramework
 {
     public class EfPostCategoryDal : EfEntityRepositoryBase<PostCategory, BlogDbContext>, IPostCategoryDal
@@ -59,6 +64,114 @@ namespace Application.DataAccsess.Concrete.EntityFramework
         }
 
 
+        public IList<PostCardList2Dto> GetAll2(Expression<Func<PostCardList2Dto, bool>> filter = null)
+        {
+            using (var context = new BlogDbContext())
+            {
+                if(filter==null)
+                {
+                    return
+                    context.Posts
+                    .Include(pc => pc.PostCategories).ThenInclude(c => c.Category)
+                    .Select(se => new PostCardList2Dto
+                    {
+
+                        PostId = se.Id,
+                        Title = se.Title,
+                        ImageName = se.ImageName,
+                        Created = DateTime.Now,
+
+                        UserId = se.UserId,
+                        FirstName = se.User.FirstName,
+                        LastName = se.User.LastName,
+
+                        postCategoryListDtos = new List<PostCategoryListDto>(
+                            context.PostCategories.Where(w => w.PostId == se.Id)
+                            .Select(se => new PostCategoryListDto
+                            {
+                                CategoryId = se.CategoryId,
+                                CategoryName = se.Category.CategoryName
+                            }))
+                    }).ToList();
+                }
+
+
+                return
+                 context.Posts
+                   .Include(pc => pc.PostCategories).ThenInclude(c => c.Category)
+                   .Select(se => new PostCardList2Dto
+                   {
+                       PostId = se.Id,
+                       Title = se.Title,
+                       ImageName = se.ImageName,
+                       Created = DateTime.Now,
+
+                       UserId = se.UserId,
+                       FirstName = se.User.FirstName,
+                       LastName = se.User.LastName,
+
+                       postCategoryListDtos = new List<PostCategoryListDto>(
+                           context.PostCategories.Where(w => w.PostId == se.Id)
+                           .Select(se => new PostCategoryListDto
+                           {
+                               CategoryId = se.CategoryId,
+                               CategoryName = se.Category.CategoryName
+                           }))
+                   })
+                   .Where(filter)
+                   .ToList();           
+            }
+        }
+
+
+
+        public IList<PostCardList2Dto> GetByCategoryId(string categoryId)
+        {
+            using (var context=new BlogDbContext())
+            {
+                var entity = context.Posts.Include(pc => pc.PostCategories).ThenInclude(c => c.Category)
+                  .Select(se => new PostCardList2Dto
+                  {
+                      PostId = se.Id,
+                      Title = se.Title,
+                      ImageName = se.ImageName,
+                      Created = DateTime.Now,
+                      UserId = se.UserId,
+                      FirstName = se.User.FirstName,
+                      LastName = se.User.LastName,
+                      postCategoryListDtos = new List<PostCategoryListDto>(
+                          context.PostCategories
+                          .Where(w => w.PostId == se.Id && w.CategoryId==categoryId)
+                          .Select(se => new PostCategoryListDto { CategoryId = se.CategoryId, CategoryName = se.Category.CategoryName }))
+                  })
+                  .ToList();
+                var control = new List<PostCardList2Dto>();
+                foreach (var item in entity)
+                {
+                    if (!item.postCategoryListDtos.IsNullOrEmpty())
+                    {control.Add(item);}
+                }
+                return control;
+            }
+        }
+
+
+
+       public void MultipleAdd(PostCategoryCreateDto postCategoryCreateDto)
+        {
+            using (var context=new BlogDbContext())
+            {
+                var sorgu = new PostCategory
+                {
+                    CategoryId = postCategoryCreateDto.CategoryId,
+                    PostId = postCategoryCreateDto.PostId
+                };
+
+                context.PostCategories.Add(sorgu);
+                context.SaveChanges();       
+            }
+        }
+
 
         public void Update2(PostCategory postCategory)
         {
@@ -75,7 +188,6 @@ namespace Application.DataAccsess.Concrete.EntityFramework
             }
         }
 
-
-
+     
     }
 }
