@@ -66,6 +66,9 @@ namespace WebApi.Controllers
         public IActionResult GetByPostId(string postId)
         {
             var result = _postService.GetByPostId(postId);
+           var sonuc=result.Data.Count();
+            if (sonuc == 0) return BadRequest("Post bulunamadı");
+
             if (result.Success) { return Ok(result.Data); }
             return BadRequest(result.Message);
         }

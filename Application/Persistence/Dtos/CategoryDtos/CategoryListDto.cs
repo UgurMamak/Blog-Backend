@@ -10,6 +10,6 @@ namespace Application.Persistence.Dtos
     {
         public string Id { get; set; }       
         public string CategoryName { get; set; }
-       // public List<PostCategory> PostCategories { get; set; }
+
     }
 }

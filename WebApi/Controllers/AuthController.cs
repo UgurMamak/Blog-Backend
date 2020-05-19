@@ -95,7 +95,8 @@ namespace WebApi.Controllers
         */
 
         [HttpPost("register")]//kullanıcı bilgileri ve resim bilgisi gelmektedir.
-        public async Task<IActionResult> Register([FromForm] IFormFile image, [FromForm] UserForRegisterDto userForRegisterDto)
+       // public async Task<IActionResult> Register([FromForm] IFormFile image, [FromForm] UserForRegisterDto userForRegisterDto)
+        public async Task<IActionResult> Register([FromForm] UserForRegisterDto userForRegisterDto)
         {
             var userExists = _authService.UserExists(userForRegisterDto.Email);//Kullanıcının girdiği email bilgisinin Db'de olup olamdığını kontrol ettik.
             //userExists'in geridönüş değeri SuccessResult'tır. Buradan işlemin başarılı olup olmadığını kontrol edebiliriz.
@@ -104,7 +105,7 @@ namespace WebApi.Controllers
                 return BadRequest(userExists.Message);
             }
        
-            if (image == null)
+            if (userForRegisterDto.Image == null)
             {
                 return BadRequest("Resim Bilgisi Boş");
             }
@@ -117,11 +118,11 @@ namespace WebApi.Controllers
             var registerResult = _authService.Register(userForRegisterDto, userForRegisterDto.Password,imageName);
             var result = _authService.CreateAccessToken(registerResult.Data);//registerResult'ın döndüğü Data(User) bilgisini token üretmek için parametre olarak verdim.
 
-            if (image.Length > 0)
+            if (userForRegisterDto.Image.Length > 0)
             {
                 using (var fileStream = new FileStream(Path.Combine(resimler, imageName), FileMode.Create))
                 {
-                    await image.CopyToAsync(fileStream);
+                    await userForRegisterDto.Image.CopyToAsync(fileStream);
                 }
             }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Bussiness.Abstract;
 using Application.Core.Extensions;
+using Application.Persistence.Dtos;
 using Application.Persistence.Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -42,7 +43,7 @@ namespace WebApi.Controllers
             }
             return  BadRequest(result.Message);
         }
-
+        /*
         //CategoryId'ye göre listeleme işlemi
         [HttpGet("getbyid")]
         public IActionResult GetById(string categoryId)
@@ -51,6 +52,22 @@ namespace WebApi.Controllers
             if (result.Success)
             {
                 return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+        */
+        //CategoryId'ye göre listeleme işlemi
+        [HttpGet("getbyid")]
+        public IActionResult GetById(string categoryId)
+        {
+            var result = _categoryService.GetById(categoryId);
+            var cat = new CategoryListDto { 
+                CategoryName=result.Data.CategoryName,
+                Id=result.Data.Id
+            };
+            if (result.Success)
+            {
+                return Ok(cat);
             }
             return BadRequest(result.Message);
         }
