@@ -10,6 +10,6 @@ namespace Application.Persistence.Dtos.CommentDtos
         public string Content { get; set;}//yorum
         public string UserId { get; set;}//yorumu yazan
         public string PostId { get; set;}//yazdığı post
-        public string Created { get; set;}//yorum yazılma tarihi
+        //public string Created { get; set;}//yorum yazılma tarihi
     }
 }

@@ -85,6 +85,9 @@ namespace Application.DataAccsess.Concrete.EntityFramework
                         FirstName = se.User.FirstName,
                         LastName = se.User.LastName,
 
+                        CommentNumber = context.Comments.Where(w => w.PostId == se.Id).Count(),
+                        LikeNumber=context.LikePosts.Where(w=>w.PostId==se.Id && w.LikeStatus==true).Count(),
+
                         postCategoryListDtos = new List<PostCategoryListDto>(
                             context.PostCategories.Where(w => w.PostId == se.Id)
                             .Select(se => new PostCategoryListDto
@@ -94,7 +97,7 @@ namespace Application.DataAccsess.Concrete.EntityFramework
                             }))
                     }).ToList();
                 }
-
+                
 
                 return
                  context.Posts

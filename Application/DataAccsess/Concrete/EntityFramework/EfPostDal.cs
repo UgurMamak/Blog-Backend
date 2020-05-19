@@ -87,7 +87,7 @@ namespace Application.Persistence.EntityFramework
                           .Select(se => new PostCategoryListDto { CategoryId = se.CategoryId, CategoryName = se.Category.CategoryName })),
 
                         Comments = new List<CommentListDto>(
-                           context.Comments.Where(w => w.PostId == se.Id)
+                           context.Comments.OrderBy(d=>d.Created).Where(w => w.PostId == se.Id)
                                                         .Select(se => new CommentListDto
                                                         {
                                                             Id = se.Id,
