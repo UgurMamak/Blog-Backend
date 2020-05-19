@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Application.Persistence.Entity
 {
     public class Post : AuditableEntity
-    { 
+    {
         public Post()
         {
             Id = Guid.NewGuid().ToString();
@@ -18,9 +18,11 @@ namespace Application.Persistence.Entity
         public string Content { get; set; }
 
         public string UserId { get; set; } //postu ekleyen kullanıcı
-        //public Guid UserId { get; set; } //postu ekleyen kullanıcı
+                                           //public Guid UserId { get; set; } //postu ekleyen kullanıcı
 
         // public int PostCategoryId { get; set; }
+
+        public string ImageName { get; set; }
 
         //public PostCategory PostCategory { get; set; }
         public List<PostCategory> PostCategories { get; set; }

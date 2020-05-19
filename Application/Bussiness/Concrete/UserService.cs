@@ -1,6 +1,7 @@
 ﻿using Application.Bussiness.Abstract;
 using Application.Core.Utilities.Results;
 using Application.DataAccsess.Abstract;
+using Application.Persistence.Dtos;
 using Application.Persistence.Entity;
 using System;
 using System.Collections.Generic;
@@ -34,18 +35,20 @@ namespace Application.Bussiness.Concrete
         {
             //GetList() kullanıp where ile de çekebiliriz.
             return _userDal.Get(u => u.Email == email);
-        }
-
-        
-
-        
+        }   
         public IDataResult<List<User>> GetList()
         {
             //return new SuccessDataResult<List<PostCategory>>(_postCategoryDal.GetList(p => p.CategoryId == categoryId).ToList());
             return new SuccessDataResult<List<User>>(_userDal.GetList().ToList());
             //return new SuccessDataResult<List<User>>(_userDal.GetListDeneme().ToList());
         }
-        
+
+        //**************
+        public void AddUserRole(UserForRegisterDto userForRegister, string userId)
+        {
+            _userDal.AddUserRole( userForRegister,userId);
+        }
+
 
 
     }

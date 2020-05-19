@@ -24,6 +24,8 @@ using Microsoft.IdentityModel.Tokens;
 using Application.Core.Extensions;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
+using Application.Core.Utilities.IOC;
+using Application.Core.DependencyResolvers;
 
 //using Microsoft.AspNetCore.Http;
 
@@ -77,6 +79,13 @@ namespace WebApi
                     };
                 });
 
+
+            //Core katmanýna yazmýþ olduðumuz service collection yapýsýný ekliyoruz.
+            services.AddDependencyResolvers(new ICoreModule[]
+            {
+                new CoreModule(),
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,6 +95,9 @@ namespace WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //forntend seviyesi için exception middlaware i
+            app.ConfigureCustomExceptionMiddleware();
 
             //CORS için middleware verdik.
             app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader()); //yayýna çýktýðýmýzda kendi domainimizi vereceðiz.

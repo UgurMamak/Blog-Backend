@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using Application.Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Application.Core.DataAccsess.EntityFramework
 {
@@ -23,7 +24,21 @@ namespace Application.Core.DataAccsess.EntityFramework
                 context.SaveChanges();
             }
         }
+        /*
+        public void MultipleAdd(TEntity entity)
+        {
+            using (var context = new TContext())
+            {
+                var s = new TEntity();
 
+                var sorgu = context.Set<TEntity>(){ entity};
+
+                var addedEntity = context.Entry(entity);
+                addedEntity.State = EntityState.Added;
+                context.SaveChanges();
+            }
+        }
+        */
         public  void Delete(TEntity entity)
         {
             using (var context = new TContext())
@@ -33,6 +48,21 @@ namespace Application.Core.DataAccsess.EntityFramework
                  context.SaveChanges();
             }
         }
+
+        //id ye göre silme işlemi
+        public void DeleteById(Expression<Func<TEntity, bool>> filter = null)
+        {
+            using (var context = new TContext())
+            {
+                var entity=context.Set<TEntity>().Where(filter).ToList();
+                foreach (var item in entity)
+                {
+                    context.Set<TEntity>().Remove(item);
+                }
+                context.SaveChanges();
+            }
+        }
+
 
         public TEntity Get(Expression<Func<TEntity, bool>> filter)
         {
@@ -60,8 +90,7 @@ namespace Application.Core.DataAccsess.EntityFramework
             {
                 var updatedEntity = context.Entry(entity);
                 updatedEntity.State = EntityState.Modified; 
-                context.SaveChanges();
-               
+                context.SaveChanges();              
             }
         }
     }

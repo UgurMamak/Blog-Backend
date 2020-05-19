@@ -1,9 +1,12 @@
 ﻿using Application.Bussiness.Abstract;
+using Application.Bussiness.Constants;
 using Application.Core.Utilities.Results;
 using Application.DataAccsess.Abstract;
+using Application.Persistence.Dtos.LikePostDto;
 using Application.Persistence.Entity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Application.Bussiness.Concrete
@@ -15,29 +18,67 @@ namespace Application.Bussiness.Concrete
         {
             _likePostDal = likePostDal;
         }
-        public IResult Add(LikePost likePost)
+        //+++
+        public IResult Add(LikePostCreateDto likePost)
         {
-            throw new NotImplementedException();
+            var lpost = new LikePost {
+                PostId = likePost.PostId,
+                UserId=likePost.UserId,
+                LikeStatus=likePost.LikeStatus
+            };
+            _likePostDal.Add(lpost);
+            return new SuccessResult(Messages.LikePostAdded);
         }
 
-        public IResult Delete(LikePost likePos)
-        {
-            throw new NotImplementedException();
-        }
+        //Kullanıcının daha önce like ve ya dislike tutup tutmadığı kontrol edilir.+++
+       public string LikePostExists(LikePostCreateDto likePost)
+       {
+            //sonuc==0 ise yeni gelen datayı ekle
+            //sonuc==1 ise güncelleme yap.(eski datayı sil yenisini ekle)
+            //sonuc==2 ise hiçbirşey yapma
+            var sonuc = "";           
+            //postId ve userId göndererek daha önce işlem yapılıp yaplmadığını döndüm.
+            var isThere = _likePostDal.GetList(w => w.PostId == likePost.PostId && w.UserId == likePost.UserId).Count();
+            //kayıt yoksa yeni gelen değeri ekle
+            if (isThere==0)
+            {
+                sonuc = "0";
+                return sonuc;
+            }
+            //postId userId ve likestatu durular gönderilir.
+            var likestatu = _likePostDal.GetList(w => w.PostId == likePost.PostId && w.UserId == likePost.UserId && w.LikeStatus==likePost.LikeStatus).Count();
+            //eğer gelen data db yoksa güncelleme yap
+            if(likestatu==0)
+            {
+                sonuc = "1";
+                return sonuc;
+            }
+            //eğer ikisine de girmezse hiç birişlem yapma diyeceğiz
+            sonuc = "2";
+            return sonuc;     
+       }
 
-        public IDataResult<LikePost> GetById(string postId)
-        {
-            throw new NotImplementedException();
-        }
-
+        //+++
         public IDataResult<List<LikePost>> GetList()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult <List<LikePost>>(_likePostDal.GetList().ToList());
         }
 
-        public IResult Update(LikePost likePos)
+        //+++
+        public IDataResult<LikePostNumberStatusDto> GetNumberStatus(string postId)
         {
-            throw new NotImplementedException();
+            //_likePostDal.GetNumberStatus(postId);
+            //return new SuccessDataResult<List<LikePostNumberStatusDto>>(_likePostDal.GetNumberStatus(postId).ToString());          
+            return new SuccessDataResult<LikePostNumberStatusDto>(_likePostDal.GetNumberStatus(postId));        
         }
+
+        //+++
+        public IResult Delete(LikePostCreateDto likePost)
+        {
+            //userId ve postId değerlerine göre girilen kayıt silinir.
+           //var entity= _likePostDal.Get(w => w.PostId == likePost.PostId && w.UserId == likePost.UserId && w.LikeStatus == likePost.LikeStatus);                   
+            _likePostDal.DeleteById(w => w.PostId == likePost.PostId && w.UserId == likePost.UserId);
+            return new SuccessResult();
+        }    
     }
 }

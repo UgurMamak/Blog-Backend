@@ -1,7 +1,11 @@
 ﻿using Application.Bussiness.Abstract;
 using Application.Bussiness.Constants;
+using Application.Core.Aspects.Autofac.Transaction;
 using Application.Core.Utilities.Results;
 using Application.DataAccsess.Abstract;
+using Application.Persistence.Dtos;
+using Application.Persistence.Dtos.PostCategoryDtos;
+using Application.Persistence.Dtos.PostDtos;
 using Application.Persistence.Entity;
 using System;
 using System.Collections.Generic;
@@ -19,6 +23,7 @@ namespace Application.Bussiness.Concrete
             _postCategoryDal = postCategoryDal;
         }
 
+        
         public IDataResult<List<PostCategory>> GetList()
         {
             return new SuccessDataResult<List<PostCategory>>(_postCategoryDal.GetList().ToList());
@@ -33,12 +38,6 @@ namespace Application.Bussiness.Concrete
             //CategoryId'ye göre listeleme işlemi için yazıldı.
             return new SuccessDataResult<List<PostCategory>>(_postCategoryDal.GetList(p => p.CategoryId == categoryId).ToList());
         }
-        public IResult Add(PostCategory postCategory)
-        {
-
-            _postCategoryDal.Add(postCategory);
-            return new SuccessResult(Messages.CategoryAdded);
-        }
 
         public IResult Delete(PostCategory postCategory)
         {
@@ -46,12 +45,64 @@ namespace Application.Bussiness.Concrete
             return new SuccessResult(Messages.CategoryDeleted);
         }
 
-        public IResult Update(PostCategory postCategory)
+        public IResult Update(PostCategory postCategory)//+++
         {
-            _postCategoryDal.Update(postCategory);
+            _postCategoryDal.Update2(postCategory);
             return new SuccessResult(Messages.CategoryAdded);
         }
 
+        [TransactionScopeAspect]//+++++
+        public IResult Add(PostCategoryCreateDto postCategoryCreateDto)
+        {
+            var postCategory = new PostCategory
+            {
+                CategoryId = postCategoryCreateDto.CategoryId,
+                PostId = postCategoryCreateDto.PostId
+            };
+            //_postCategoryDal.Add(postCategory);
+            _postCategoryDal.MultipleAdd(postCategoryCreateDto);
+            return new SuccessResult(Messages.CategoryAdded);
+            
+        }
+
+        //******************************************************************
+
+            //Tüm postları listelemek için
+
+        //++++++++
+        public IDataResult<List<PostCardListDto>> GetAll()
+        {
+            return new SuccessDataResult<List<PostCardListDto>>(_postCategoryDal.GetAll().ToList());            
+        }
+
+        public IDataResult<List<PostCardList2Dto>> GetAll2()
+        {
+            return new SuccessDataResult<List<PostCardList2Dto>>(_postCategoryDal.GetAll2().ToList());
+        }
+
+        //++++++++
+        public IDataResult<List<PostCardList2Dto>> GetByCategoryId(string categoryId)
+        {
+            return new SuccessDataResult<List<PostCardList2Dto>>(_postCategoryDal.GetByCategoryId(categoryId).ToList());
+           // return new SuccessDataResult<List<PostCardListDto>>(_postCategoryDal.GetAll2(p => p.CategoryId == categoryId).ToList());
+        }
+
+
+        //++++++++
+        public IDataResult<List<PostCardList2Dto>> GetByUserId(string userId)
+        {
+            return new SuccessDataResult<List<PostCardList2Dto>>(_postCategoryDal.GetAll2(p=>p.UserId==userId).ToList());
+
+           // return new SuccessDataResult<List<PostCardListDto>>(_postCategoryDal.GetAll(p => p.UserId == userId).ToList());
+        }
+
+
+        [TransactionScopeAspect]//+++++++
+        public IResult DeleteByPostId(string postId)//
+        {
+            _postCategoryDal.DeleteById(w => w.PostId == postId);
+            return new SuccessResult(Messages.CommentDeleted);
+        }
 
     }
 }

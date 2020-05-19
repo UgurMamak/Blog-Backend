@@ -1,5 +1,7 @@
 ﻿using Application.Core.DataAccsess.EntityFramework;
+using Application.Core.Utilities.Results;
 using Application.DataAccsess.Abstract;
+using Application.Persistence.Dtos;
 using Application.Persistence.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -36,8 +38,24 @@ namespace Application.Persistence.EntityFramework
                              select new OperationClaim { Id = operationClaim.Id, Name = operationClaim.Name };
                 return result.ToList();
             }
+        }
 
+        public void AddUserRole(UserForRegisterDto userForRegister, string userId)
+        {
+            using (var context = new BlogDbContext())
+            {
+                //gelen role bilgisine göre role'ün sahip olduğu Id'yi çektik.
+                var result = context.OperationClaims.Where(w => w.Name == userForRegister.Role).Select(s=>s.Id).Single();//RoleIdyi çeker.
+int deneme = Convert.ToInt32(result);
 
+                //ekleme işlemi için nesne oluşturduk.
+                var info = new UserOperationClaim {
+                    UserId = userId,
+                    OperationClaimId = Convert.ToInt32(result)
+                };
+                context.UserOperationClaims.Add(info);
+                context.SaveChanges();
+            }
         }
     }
 }

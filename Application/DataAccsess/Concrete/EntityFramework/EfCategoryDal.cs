@@ -10,6 +10,5 @@ namespace Application.Persistence.EntityFramework
     {
         //EfEntityRepositoryBase interface'in de ki tüm metotlar burada geçerli
         //Icategorda ise sadece bu tabloya ait olabilecek metotlar yazılabilir.
-
     }
 }

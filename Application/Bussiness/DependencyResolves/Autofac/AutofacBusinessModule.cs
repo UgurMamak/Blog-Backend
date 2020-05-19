@@ -44,7 +44,7 @@ namespace Application.Bussiness.DependencyResolves.Autofac
             //Jwt helper'a gidip bağımlılıklarına bakıyoruz.
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
-            /*
+            
 
             //Bu servislerin nesneler için ınterceptor çalıştımak gerekiyor
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();//assembly e ulaşır
@@ -56,7 +56,7 @@ namespace Application.Bussiness.DependencyResolves.Autofac
                     
                     Selector = new AspectInterceptorSelector()
                 }).SingleInstance();
-                */
+                
 
         }
         

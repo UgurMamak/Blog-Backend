@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Api\\Api.csproj": {}
+    "C:\\Users\\Uğur Mamak\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Api\\Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Api\\Api.csproj": {
+    "C:\\Users\\Uğur Mamak\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Api\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Api\\Api.csproj",
+        "projectUniqueName": "C:\\Users\\Uğur Mamak\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Api\\Api.csproj",
         "projectName": "Api",
-        "projectPath": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Api\\Api.csproj",
-        "packagesPath": "C:\\Users\\Uğur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Api\\obj\\",
+        "projectPath": "C:\\Users\\Uğur Mamak\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Api\\Api.csproj",
+        "packagesPath": "C:\\Users\\Uğur Mamak\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Uğur Mamak\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Api\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Uğur\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Uğur Mamak\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -30,8 +27,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj": {
-                "projectPath": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj"
+              "C:\\Users\\Uğur Mamak\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\Uğur Mamak\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj"
               }
             }
           }
@@ -94,24 +91,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj": {
+    "C:\\Users\\Uğur Mamak\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj",
+        "projectUniqueName": "C:\\Users\\Uğur Mamak\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\Uğur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Uğur\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\obj\\",
+        "projectPath": "C:\\Users\\Uğur Mamak\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\Uğur Mamak\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Uğur Mamak\\Desktop\\BLOG PROJESİ\\Blog-Backend\\Application\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Uğur\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Uğur Mamak\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -154,6 +148,10 @@
             "FluentValidation": {
               "target": "Package",
               "version": "[8.6.2, )"
+            },
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -207,7 +205,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
