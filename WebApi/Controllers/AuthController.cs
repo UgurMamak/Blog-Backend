@@ -8,6 +8,7 @@ using Application.Core.Aspects.Autofac.Transaction;
 using Application.Persistence.Dtos;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -26,18 +27,23 @@ namespace WebApi.Controllers
 
         [HttpPost("login")]
         public ActionResult Login(UserForLoginDto userForLoginDto)
-        {
+        { 
             //Bu kodlar geliştirilebilir Hata Yönetimi olarak eksiklikleri var
             var userToLogin = _authService.Login(userForLoginDto); //_authService'e gidip login operasyonunu çalıştırır.
 
             // service'de return olarak succesDataResult vermiştik. o değerden succces değerini, Message değerlerini ve Data değerini çekebiliriz.
             if (!userToLogin.Success)//işlme sonucu başarılı değilse badrequest döndürüyoruz.
             {
+               
                 return BadRequest(userToLogin.Message);
             }
             //eğer if'e girmediyse login başarılıdır. Bunun için access token üretimi gerçekleştireceğiz.
 
             var result = _authService.CreateAccessToken(userToLogin.Data);//gelen kullanıcı bilgisini token üretimi için gönderiyoruz.
+
+        
+
+
 
             if (result.Success)
             {
@@ -45,7 +51,7 @@ namespace WebApi.Controllers
             }
 
             return BadRequest(result.Message);//üretmede hata varsa message yazdırılır.
-
+           
         }
 
         /*
@@ -105,24 +111,30 @@ namespace WebApi.Controllers
                 return BadRequest(userExists.Message);
             }
        
-            if (userForRegisterDto.Image == null)
-            {
-                return BadRequest("Resim Bilgisi Boş");
-            }
+            
 
             string Id = Guid.NewGuid().ToString();//resimlere guid Id şeklinde isim ataması yaptım.
             var resimler = Path.Combine(_environment.WebRootPath, "userImage");//dizin bilgisi
             string imageName = $"{Id}.jpg";//Db ye kaydedilecek olan resimlerin ismi
-         
+
+            if (userForRegisterDto.Image == null)
+            {
+                //return BadRequest("Resim Bilgisi Boş");
+                imageName = "profileImage.jpg";
+            }
+
 
             var registerResult = _authService.Register(userForRegisterDto, userForRegisterDto.Password,imageName);
             var result = _authService.CreateAccessToken(registerResult.Data);//registerResult'ın döndüğü Data(User) bilgisini token üretmek için parametre olarak verdim.
-
-            if (userForRegisterDto.Image.Length > 0)
+            if (userForRegisterDto.Image != null)
             {
-                using (var fileStream = new FileStream(Path.Combine(resimler, imageName), FileMode.Create))
-                {
-                    await userForRegisterDto.Image.CopyToAsync(fileStream);
+                if (userForRegisterDto.Image.Length > 0)
+            {
+               
+                    using (var fileStream = new FileStream(Path.Combine(resimler, imageName), FileMode.Create))
+                    {
+                        await userForRegisterDto.Image.CopyToAsync(fileStream);
+                    }
                 }
             }
 

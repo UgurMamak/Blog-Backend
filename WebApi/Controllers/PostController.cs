@@ -20,11 +20,13 @@ namespace WebApi.Controllers
         private IPostService _postService;
         private readonly IWebHostEnvironment _environment;
         private IPostCategoryService _postCategoryService;
-        public PostController(IPostService postService, IWebHostEnvironment environment, IPostCategoryService postCategoryService)
+        private ILikePostService _likePostService;
+        public PostController(IPostService postService, IWebHostEnvironment environment, IPostCategoryService postCategoryService,ILikePostService likePostService)
         {
             _postService = postService;
             _environment = environment;
             _postCategoryService = postCategoryService;
+            _likePostService = likePostService;
         }
 
         [HttpGet("getlist")]
@@ -39,8 +41,9 @@ namespace WebApi.Controllers
         [HttpPost("add")]//+++
         public async Task<IActionResult> Add([FromForm]PostCreateDto postCreateDto)
         {
-            if (string.IsNullOrEmpty(postCreateDto.CategoryId)) return BadRequest("Kategori Seçmediniz.");
+            //if (string.IsNullOrEmpty(postCreateDto.CategoryId)) return BadRequest("Kategori Seçmediniz.");
             if (postCreateDto.Image == null) { return BadRequest("Resim Eklenmedi"); }
+           
 
             string Id = Guid.NewGuid().ToString();//resimlere guid Id şeklinde isim ataması yaptım.
             var resimler = Path.Combine(_environment.WebRootPath, "postImage");//dizin bilgisi
@@ -95,14 +98,23 @@ namespace WebApi.Controllers
         [HttpPost("delete")]//+++++
         public IActionResult Delete([FromForm]Post post)//sadece Id değeri ile silinecek.
         {
-            var result = _postService.Delete(post);
-            if (result.Success)
+
+
+            var deleteLike = _likePostService.DeletePostLike(post.Id);
+            if(deleteLike.Success)
             {
-                var resimler = Path.Combine(_environment.WebRootPath, "postImage");//dizin bilgisi
-                System.IO.File.Delete(resimler + "\\" + post.ImageName);
-                return Ok(result.Message);
+                var result = _postService.Delete(post);
+                if (result.Success)
+                {
+                    var resimler = Path.Combine(_environment.WebRootPath, "postImage");//dizin bilgisi
+                    System.IO.File.Delete(resimler + "\\" + post.ImageName);
+                    return Ok(result.Message);
+                }
+                return BadRequest(result.Message);
             }
-            return BadRequest(result.Message);
+
+            return BadRequest();
+            
         }
     }
 }

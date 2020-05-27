@@ -67,7 +67,7 @@ namespace Application.Bussiness.Concrete
         //+++
         public IDataResult<LikePostNumberStatusDto> GetNumberStatus(string postId)
         {
-            //_likePostDal.GetNumberStatus(postId);
+            //_likePostDal.GetNumberStatus(postId); 
             //return new SuccessDataResult<List<LikePostNumberStatusDto>>(_likePostDal.GetNumberStatus(postId).ToString());          
             return new SuccessDataResult<LikePostNumberStatusDto>(_likePostDal.GetNumberStatus(postId));        
         }
@@ -79,6 +79,13 @@ namespace Application.Bussiness.Concrete
            //var entity= _likePostDal.Get(w => w.PostId == likePost.PostId && w.UserId == likePost.UserId && w.LikeStatus == likePost.LikeStatus);                   
             _likePostDal.DeleteById(w => w.PostId == likePost.PostId && w.UserId == likePost.UserId);
             return new SuccessResult();
-        }    
+        }
+
+      
+        public IResult DeletePostLike(string postId)
+        {                   
+            _likePostDal.DeleteById(w =>w.PostId==postId);
+            return new SuccessResult();
+        }
     }
 }

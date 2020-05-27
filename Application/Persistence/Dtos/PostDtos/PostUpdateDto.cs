@@ -6,7 +6,7 @@ using System.Text;
 namespace Application.Persistence.Dtos.PostDtos
 {
     public class PostUpdateDto
-    {
+    { 
         public string Id { get; set; }//postId
         public string Title { get; set; }
         public string Content { get; set; }

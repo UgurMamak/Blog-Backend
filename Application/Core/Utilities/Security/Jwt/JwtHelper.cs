@@ -9,6 +9,8 @@ using System.Security.Claims;
 using System.Text;
 using Application.Core.Extensions;
 using System.Linq;
+using Application.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Core.Utilities.Security.Jwt
 {
@@ -55,13 +57,16 @@ namespace Application.Core.Utilities.Security.Jwt
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();            
             var token = jwtSecurityTokenHandler.WriteToken(jwt);
 
+            
 
-            //AccessToken döndürmemiz gerekiyor. (Jwt/AccessToken classında bulunan property değeri)
-            return new AccessToken
-            {
-                Token = token,
-                Expiration = _accessTokenExpiration
-            };
+
+                //AccessToken döndürmemiz gerekiyor. (Jwt/AccessToken classında bulunan property değeri)
+                return new AccessToken
+                {
+                    Token = token,
+                    Expiration = _accessTokenExpiration,
+                    UserId = user.Id
+                };
 
         }
 

@@ -77,15 +77,15 @@ namespace Application.Bussiness.Concrete
         }
         */
 
-        //Token yaratacak
+        //Token yaratacak 
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {
             /* Kullanıcı kayıt olduktan veya login olduktan token yaratılıcak. ve kullanıcı işlemlerini bu token vasıtasıyka gerçekleştirecek.
              * Aşağıdaki kodlar başarılı olma durumunda olabilecek işlemler başarısız işlem olma durumunda da burada eklemeler yapmalıyız
              */
-
-            var claims = _userService.GetClaims(user);//user rollerini döndürecek (Kullanıcının sahip olduğu rolleri dönecek.)
+            var claims = _userService.GetClaims(user);//user rollerini döndürecek (Kullanıcının sahip olduğu rolleri dönecek.)           
             var accessToken = _tokenHelper.CreateToken(user, claims);//user bilgisi ve roll bilgisini token oluşturacak operasyona parametre olarak veriyoruz.
+            accessToken.Role = claims;                        
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
 

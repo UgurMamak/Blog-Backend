@@ -30,7 +30,7 @@ namespace WebApi.Controllers
         [HttpGet("getall")]
         //[Authorize()] //Her login olan bu operasyonu kullanabilir demek.
         //[Authorize()] //Her login olan bu operasyonu kullanabilir demek.
-        //[Authorize(Roles ="SystemAdmin")]//role verme şekli
+       // [Authorize(Roles ="SystemAdmin")]//role verme şekli
         public IActionResult GetList()
         {
             ///User.ClaimRoles(); //Kulanıcıya ait rolleri getirir.
@@ -72,15 +72,20 @@ namespace WebApi.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpPost("add")]
+        [HttpPost("add")]//++++
         public IActionResult Add(Category category)
         {
+            var categoryExists = _categoryService.CategoryExists(category.CategoryName);            
+            if (!categoryExists.Success)
+            {
+                return BadRequest(categoryExists.Message);
+            }
+
             var result = _categoryService.Add(category);
             if (result.Success)
             {
                 return Ok(result.Message);
             }
-
             return BadRequest(result.Message);
         }
 

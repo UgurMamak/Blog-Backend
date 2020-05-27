@@ -97,7 +97,7 @@ namespace WebApi.Controllers
 
 
         [HttpGet("getbycategoryId")]//seçilen kategoriye göre listeleme +++
-        public IActionResult GetByCategoryId(string categoryId)
+        public IActionResult GetByCategoryId(string categoryId) 
         {
             var result = _postCategoryService.GetByCategoryId(categoryId);
             if (result.Success) { return Ok(result.Data); }

@@ -1,8 +1,11 @@
 ﻿using Application.Core.DataAccsess.EntityFramework;
 using Application.Core.Utilities.Results;
+using Application.Core.Utilities.Security.Hashing;
 using Application.DataAccsess.Abstract;
 using Application.Persistence.Dtos;
+using Application.Persistence.Dtos.UserDtos;
 using Application.Persistence.Entity;
+using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -45,11 +48,12 @@ namespace Application.Persistence.EntityFramework
             using (var context = new BlogDbContext())
             {
                 //gelen role bilgisine göre role'ün sahip olduğu Id'yi çektik.
-                var result = context.OperationClaims.Where(w => w.Name == userForRegister.Role).Select(s=>s.Id).Single();//RoleIdyi çeker.
-int deneme = Convert.ToInt32(result);
+                var result = context.OperationClaims.Where(w => w.Name == userForRegister.Role).Select(s => s.Id).Single();//RoleIdyi çeker.
+                int deneme = Convert.ToInt32(result);
 
                 //ekleme işlemi için nesne oluşturduk.
-                var info = new UserOperationClaim {
+                var info = new UserOperationClaim
+                {
                     UserId = userId,
                     OperationClaimId = Convert.ToInt32(result)
                 };
@@ -57,5 +61,40 @@ int deneme = Convert.ToInt32(result);
                 context.SaveChanges();
             }
         }
+
+
+        public void Update2(UserUpdateDto userUpdateDto)
+        {
+            using (var context=new BlogDbContext())
+            {
+                var update = context.Users.SingleOrDefault(w=>w.Id==userUpdateDto.Id);
+
+                
+
+                if (userUpdateDto.FirstName != null) update.FirstName = userUpdateDto.FirstName;
+
+                if (userUpdateDto.LastName != null) update.LastName = userUpdateDto.LastName;
+
+                if (userUpdateDto.Image != null) update.ImgName = userUpdateDto.ImageName;
+                
+                if (userUpdateDto.Email != null) update.Email = userUpdateDto.Email;
+
+                if(userUpdateDto.password!=null)
+                {
+                    byte[] passwordHash, passwordSalt; //işlem bitince bunlar oluşacak
+                    HashingHelper.CreatePasswordHash(userUpdateDto.password, out passwordHash, out passwordSalt);
+                    update.PasswordHash = passwordHash;
+                    update.PasswordSalt = passwordSalt;
+                }
+
+                update.Updated = DateTime.Now;
+                context.SaveChanges();
+            }            
+        }
+
+
+
+
+
     }
 }

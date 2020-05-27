@@ -75,7 +75,7 @@ namespace Application.Persistence.EntityFramework
                         Title = se.Title,
                         ImageName = se.ImageName,
                         Content = se.Content,
-                        Created = Convert.ToDateTime(se.Created),
+                        Created = Convert.ToDateTime(se.Created.ToShortDateString()),
 
                         UserId = se.UserId,
                         FirstName = se.User.FirstName,
@@ -166,7 +166,6 @@ namespace Application.Persistence.EntityFramework
 
                 entity.Updated = DateTime.Now;
                 context.SaveChanges();
-
             }
         }
 
