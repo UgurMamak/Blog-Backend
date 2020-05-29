@@ -56,11 +56,10 @@ namespace Application.Persistence.EntityFramework
                                                             FirstName = se.User.FirstName,
                                                             LastName = se.User.LastName,
                                                             ImageName = se.User.ImgName,
-                                                            created = se.Created,
+                                                            created = Convert.ToDateTime(se.Created.ToShortDateString()),
                                                             PostId = se.PostId
 
                                                         }))
-
                     }).Where(filter).ToList();
             }
         }
@@ -96,7 +95,7 @@ namespace Application.Persistence.EntityFramework
                                                             FirstName = se.User.FirstName,
                                                             LastName = se.User.LastName,
                                                             ImageName = se.User.ImgName,
-                                                            created = se.Created,
+                                                            created = Convert.ToDateTime(se.Created.ToShortTimeString()),
                                                             PostId = se.PostId
                                                         }))
                     })
@@ -146,10 +145,6 @@ namespace Application.Persistence.EntityFramework
             }
         }
 
-
-
-
-
         public void Update2(PostUpdateDto postUpdateDto)
         {
             using (var context=new BlogDbContext())
@@ -163,6 +158,10 @@ namespace Application.Persistence.EntityFramework
                 if (postUpdateDto.ImageName != null) entity.ImageName = postUpdateDto.ImageName;
                
                 if (postUpdateDto.Title != null) entity.Title = postUpdateDto.Title;
+
+                if (postUpdateDto.isActive != null) entity.IsActive = postUpdateDto.isActive;
+               
+                if (postUpdateDto.isDeleted!= null) entity.IsDeleted = postUpdateDto.isDeleted;
 
                 entity.Updated = DateTime.Now;
                 context.SaveChanges();

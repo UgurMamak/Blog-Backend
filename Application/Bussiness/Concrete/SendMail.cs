@@ -31,7 +31,6 @@ namespace Application.Bussiness.Concrete
                 Attachment data = new Attachment(mailCreateDto.File.OpenReadStream(), mailCreateDto.File.FileName);
                 msg.Attachments.Add(data);
             }
-
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.Credentials = CredentialCache.DefaultNetworkCredentials;
             NetworkCredential AccountInfo = new NetworkCredential("ugurmamak98@gmail.com", "134ugur2163");//alan kişi

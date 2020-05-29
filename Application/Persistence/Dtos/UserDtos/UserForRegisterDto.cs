@@ -15,5 +15,7 @@ namespace Application.Persistence.Dtos
 
         public IFormFile Image { get; set; }
         public string Role { get; set; }//***********
+
+        public string processType { get; set; } //register işlemini yapan kişi admin mi normal kullanıcı mı kontrol ediyoruz.
     }
 }

@@ -11,6 +11,8 @@ namespace Application.Persistence.Dtos.PostCategoryDtos
         public string Title { get; set; }//Post
         public string ImageName { get; set; }//Post
         public DateTime Created { get; set; }//Post
+        public bool IsActive { get; set; }//postun onaylı olup olmadığına bakmak için
+        public bool IsDeleted { get; set; }//post onaylama işlemi için eklendi.
 
         public string UserId { get; set; }//User
         public string FirstName { get; set; }//User 
