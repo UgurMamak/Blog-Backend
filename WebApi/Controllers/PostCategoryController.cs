@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application.Bussiness.Abstract;
 using Application.Persistence.Dtos;
 using Application.Persistence.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -102,10 +103,12 @@ namespace WebApi.Controllers
         public IActionResult GetPopularPost()
         {
             var result = _postCategoryService.GetAll2();
-            var sonuc = result.Data.OrderByDescending(o=>o.LikeNumber).Take(3).ToList();
+            var sonuc = result.Data.OrderByDescending(o=>o.LikeNumber).Where(w => w.IsActive == true && w.IsDeleted == false).Take(3).ToList();
             if (result.Success) { return Ok(sonuc); }
             return BadRequest(result.Message);
         }
+
+      
 
         [HttpGet("confirmpost")] //is activeleri false olan postlarılistelemek için yazıldı.
         public IActionResult GetAdminConfirmpost()
@@ -115,7 +118,6 @@ namespace WebApi.Controllers
             if (result.Success) { return Ok(sonuc); }
             return BadRequest(result.Message);
         }
-
 
 
 
@@ -147,7 +149,7 @@ namespace WebApi.Controllers
             return BadRequest(result.Message);
         }
 
-        //adminin onayını bekleyen postlar(userId ye göre)
+       
         [HttpGet("invalidpost")]
         public IActionResult InvalidPost(string userId)
         {

@@ -14,6 +14,10 @@ namespace Application.Persistence.Dtos.UserDtos
         public IFormFile Image { get; set; }       
         public string ImageName { get; set; }
         public string password { get; set; }
+
+        public string FacebookLink { get; set; }
+        public string TwitterLink { get; set; }
+        public string InstagramLink { get; set; }
     }
 
 }

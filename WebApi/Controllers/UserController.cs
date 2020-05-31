@@ -18,13 +18,14 @@ namespace WebApi.Controllers
     {
        private IUserService _userService;
         private readonly IWebHostEnvironment _environment;
+        private readonly IAuthService _authService;
 
 
-
-        public UserController(IUserService userService,IWebHostEnvironment webHostEnvironment)
+        public UserController(IUserService userService,IWebHostEnvironment webHostEnvironment,IAuthService  authService)
         {
             _userService = userService;
             _environment = webHostEnvironment;
+            _authService = authService;
         }
 
         
@@ -32,6 +33,8 @@ namespace WebApi.Controllers
         public IActionResult GetList()
         {
             var result = _userService.GetList();
+
+             
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -39,8 +42,20 @@ namespace WebApi.Controllers
             return BadRequest(result.Message);
         }
 
-       //  [Authorize(Roles ="user")]//role verme şekli
-         //[Authorize(Roles ="user")]//role verme şekli
+     //   [Authorize(Roles ="SystemAdmin")]
+        [HttpGet("getalluser")]
+        public IActionResult GetAllUser()
+        {
+            var result = _userService.UserGetAll();
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+
+        //  [Authorize(Roles ="user")]//role verme şekli
+        //[Authorize(Roles ="user")]//role verme şekli
         [HttpGet("getbyuserId")]
         public IActionResult GetByUserId(string userId)
         {
@@ -53,11 +68,19 @@ namespace WebApi.Controllers
         }
 
 
-        [HttpPost("update")]
-       
+        [HttpPost("update")]      
         public async Task<IActionResult> Update([FromForm] UserUpdateDto userUpdateDto)
         {
-          var newImageName = $"{ Guid.NewGuid()}.jpg";
+            if(userUpdateDto.Email!=null)
+            {
+                var userExists = _authService.UserExists(userUpdateDto.Email);
+                                                                             
+                if (!userExists.Success)
+                {
+                    return BadRequest(userExists.Message);
+                }
+            }
+            var newImageName = $"{ Guid.NewGuid()}.jpg";
             userUpdateDto.ImageName = newImageName;
 
             var update = _userService.Update(userUpdateDto);
@@ -76,5 +99,26 @@ namespace WebApi.Controllers
             }            
             return BadRequest(update.Message);
         }
+
+
+
+
+        [HttpPost("userRoleupdate")]
+        public  IActionResult UserRoleUpdate( [FromForm]UserGetAllDto userGetAllDto)
+        {
+            var entity =_userService.UpdateRole(userGetAllDto);
+            if(entity.Success)
+            {
+                return  Ok(entity.Message);
+            }
+            return BadRequest();        
+        }
+
+
+
+
+
+
+
     }
 }

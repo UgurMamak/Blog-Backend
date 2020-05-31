@@ -31,5 +31,8 @@ namespace Application.Bussiness.Abstract
 
         IDataResult<User> Update(UserUpdateDto userUpdateDto);
 
+        IDataResult<List<UserGetAllDto>> UserGetAll();
+
+        IDataResult<UserGetAllDto> UpdateRole(UserGetAllDto userGetAllDto);
     }
 }

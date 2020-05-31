@@ -15,5 +15,9 @@ namespace Application.DataAccsess.Abstract
         void AddUserRole(UserForRegisterDto userForRegister, string userId);
 
         void Update2(UserUpdateDto userUpdateDto);
+
+        List<UserGetAllDto> GetAllUser();
+
+        void UpdateRole(UserGetAllDto userGetAllDto);
     }
 }

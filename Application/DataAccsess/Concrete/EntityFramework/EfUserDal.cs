@@ -18,17 +18,6 @@ namespace Application.Persistence.EntityFramework
 
     public class EfUserDal : EfEntityRepositoryBase<User, BlogDbContext>, IUserDal
     {
-        /*
-        public IList<User> GetListDeneme()
-        {
-            using (var context = new BlogDbContext())
-            {                
-                var sorgu = context.Users.Include(c=>c.Posts).ToList();
-                return sorgu;
-            }
-        }
-        */
-
         //Hangi kullanıcının hangi role sahip olduğunu bulmak için tabloları join işlemi ile birleştirdik.
         public List<OperationClaim> GetClaims(User user)
         {
@@ -65,34 +54,75 @@ namespace Application.Persistence.EntityFramework
 
         public void Update2(UserUpdateDto userUpdateDto)
         {
-            using (var context=new BlogDbContext())
+            using (var context = new BlogDbContext())
             {
-                var update = context.Users.SingleOrDefault(w=>w.Id==userUpdateDto.Id);
-
-                
+                var update = context.Users.SingleOrDefault(w => w.Id == userUpdateDto.Id);
 
                 if (userUpdateDto.FirstName != null) update.FirstName = userUpdateDto.FirstName;
 
                 if (userUpdateDto.LastName != null) update.LastName = userUpdateDto.LastName;
 
                 if (userUpdateDto.Image != null) update.ImgName = userUpdateDto.ImageName;
-                
+
                 if (userUpdateDto.Email != null) update.Email = userUpdateDto.Email;
 
-                if(userUpdateDto.password!=null)
+                if (userUpdateDto.password != null)
                 {
                     byte[] passwordHash, passwordSalt; //işlem bitince bunlar oluşacak
                     HashingHelper.CreatePasswordHash(userUpdateDto.password, out passwordHash, out passwordSalt);
                     update.PasswordHash = passwordHash;
                     update.PasswordSalt = passwordSalt;
                 }
+                if (userUpdateDto.InstagramLink != null) update.InstagramLink = userUpdateDto.InstagramLink;
+
+                if (userUpdateDto.TwitterLink != null) update.TwitterLink = userUpdateDto.TwitterLink;
+
+                if (userUpdateDto.FacebookLink != null) update.FacebookLink = userUpdateDto.FacebookLink;
 
                 update.Updated = DateTime.Now;
                 context.SaveChanges();
-            }            
+            }
+        }
+
+        public List<UserGetAllDto> GetAllUser()
+        {
+            using (var context = new BlogDbContext())
+            {
+                var entity = context.UserOperationClaims.Include(u => u.User).Include(o => o.OperationClaim)
+
+                    .Select(se => new UserGetAllDto
+                    {
+
+                        Id = se.UserId,
+                        FirstName = se.User.FirstName,
+                        LastName = se.User.LastName,
+                        Role = se.OperationClaim.Name,
+                        Email=se.User.Email
+
+                    })
+                    .ToList();
+                return entity;
+            }
         }
 
 
+
+        //Adminin kullanıcıların rollerini değiştirmek isterse
+        public void UpdateRole(UserGetAllDto userGetAllDto)
+        {
+            using (var context = new BlogDbContext())
+            {
+                var roleId = context.OperationClaims.Where(w => w.Name == userGetAllDto.Role).Select(se=>new { num=se.Id }).Take(1).FirstOrDefault();
+                int id = roleId.num;
+
+                var update = context.UserOperationClaims.SingleOrDefault(w=>w.UserId==userGetAllDto.Id);
+
+
+
+                if (userGetAllDto.Id != null) update.OperationClaimId = id;
+                context.SaveChanges();
+            }
+        }
 
 
 

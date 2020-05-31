@@ -42,9 +42,17 @@ namespace Application.Bussiness.Concrete
         }
         public IDataResult<List<User>> GetList()
         {
-            //return new SuccessDataResult<List<PostCategory>>(_postCategoryDal.GetList(p => p.CategoryId == categoryId).ToList());
+           var users= _userDal.GetList().ToList();
             return new SuccessDataResult<List<User>>(_userDal.GetList().ToList());
-            //return new SuccessDataResult<List<User>>(_userDal.GetListDeneme().ToList());
+           
+        }
+
+        //+++++++ Admin tümkullanıcıları görür
+        public IDataResult<List<UserGetAllDto>> UserGetAll()
+        {
+          
+            return new SuccessDataResult<List<UserGetAllDto>>(_userDal.GetAllUser().ToList());
+
         }
 
         //**************
@@ -53,8 +61,14 @@ namespace Application.Bussiness.Concrete
             _userDal.AddUserRole(userForRegister, userId);
         }
 
+        //[TransactionScopeAspect]//+++Admin Role güncellemesi yapabilir
+        public IDataResult<UserGetAllDto> UpdateRole(UserGetAllDto userGetAllDto)
+        {
+            _userDal.UpdateRole(userGetAllDto);
+            return new SuccessDataResult<UserGetAllDto>(Messages.UserUpdated);
+        }
 
-        
+
         public IDataResult<List<UserListDto>> GetById(string userId)
         {
             var user = _userDal.GetList(s => s.Id == userId).ToList();
@@ -64,33 +78,15 @@ namespace Application.Bussiness.Concrete
                 Email = se.Email,
                 ImageName =se.ImgName,
                 FirstName=se.FirstName,
-                LastName=se.LastName
+                LastName=se.LastName,
+                InstagramLink=se.InstagramLink,
+                TwitterLink=se.TwitterLink,
+                FacebookLink=se.FacebookLink
             }).ToList();
          
             return new SuccessDataResult<List<UserListDto>>(userListDto);
         }
     
-    /*
-        public IDataResult<UserListDto> GetById(string userId)
-        {
-            var user = _userDal.Get(s => s.Id == userId);
-            var userListDto = new UserListDto
-            {
-                Id = user.Id,
-                Email = user.Email,
-                ImageName = user.ImgName,
-                FirstName = user.FirstName,
-                LastName = user.LastName
-            };
-            return new SuccessDataResult<UserListDto>(userListDto);
-        }
-
-    */
-
-
-
-
-
         [TransactionScopeAspect]//+++
         public IDataResult<User> Update(UserUpdateDto userUpdateDto)
         {
