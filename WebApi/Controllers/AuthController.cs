@@ -98,10 +98,11 @@ namespace WebApi.Controllers
 
             if (registerResult.Success)
             {
+                
                 if(password!="")
                 {
-                    string body = "Merhaba" + userForRegisterDto.FirstName + " " + userForRegisterDto.LastName + "<br/>" + " Başvurunuz dikkate alınarak size hesap oluşturulmuştur." +
-                    "  Sisteme giriş yapmak için <br/> bize iletmiş olduğunuz mail adresini:" + "<b>" + userForRegisterDto.Email + "</b>" + "<br/> ve şifre olarak" + "<b>" + password + "<b/><br/>" + "kullanabilirsiniz." +
+                    string body = "Merhaba " + userForRegisterDto.FirstName + " " + userForRegisterDto.LastName + "<br/>" + " Başvurunuz dikkate alınarak size hesap oluşturulmuştur." +
+                    "  Sisteme giriş yapmak için <br/> bize iletmiş olduğunuz mail adresini:" + "<b>" + userForRegisterDto.Email + "</b>" + "<br/> ve şifre olarak: " + "<b>" + password + "<b/><br/>" + "kullanabilirsiniz." +
                     "<br/>Sisteme giriş yaptıktan sonra profil resminizi ve şifrenizi güncelleyebilirsiniz.";
 
                     MailCreateDto gonder = new MailCreateDto {
