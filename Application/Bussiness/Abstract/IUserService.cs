@@ -1,5 +1,6 @@
 ﻿using Application.Core.Utilities.Results;
 using Application.Persistence.Dtos;
+using Application.Persistence.Dtos.UserDtos;
 using Application.Persistence.Entity;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,14 @@ namespace Application.Bussiness.Abstract
         void Add(User user);//Kullanıcı ekleme işlemi
         User GetByMail(string email);//kullanıcının maili vasıtasıyla bulmak için oluşturduk.
 
-
         void AddUserRole(UserForRegisterDto userForRegister, string userId);
+        public IDataResult<List<UserListDto>> GetById(string userId);
+      //  public IDataResult<UserListDto> GetById(string userId);
 
+        IDataResult<User> Update(UserUpdateDto userUpdateDto);
 
+        IDataResult<List<UserGetAllDto>> UserGetAll();
+
+        IDataResult<UserGetAllDto> UpdateRole(UserGetAllDto userGetAllDto);
     }
 }

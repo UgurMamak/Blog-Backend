@@ -37,9 +37,6 @@ namespace Application.Bussiness.BusinessAspects.Autofac
             throw new SecuredException(Messages.AuthorizationDenied);            
         }
     }
-
-
-
     public class SecuredException : Exception
     {
         private IList<ValidationFailure> errors;

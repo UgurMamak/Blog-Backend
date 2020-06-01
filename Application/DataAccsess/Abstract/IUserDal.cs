@@ -1,6 +1,7 @@
 ﻿using Application.Core.DataAccsess;
 using Application.Core.Utilities.Results;
 using Application.Persistence.Dtos;
+using Application.Persistence.Dtos.UserDtos;
 using Application.Persistence.Entity;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,11 @@ namespace Application.DataAccsess.Abstract
     {
         List<OperationClaim> GetClaims(User user); //
         void AddUserRole(UserForRegisterDto userForRegister, string userId);
+
+        void Update2(UserUpdateDto userUpdateDto);
+
+        List<UserGetAllDto> GetAllUser();
+
+        void UpdateRole(UserGetAllDto userGetAllDto);
     }
 }

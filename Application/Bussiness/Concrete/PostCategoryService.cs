@@ -39,11 +39,19 @@ namespace Application.Bussiness.Concrete
             return new SuccessDataResult<List<PostCategory>>(_postCategoryDal.GetList(p => p.CategoryId == categoryId).ToList());
         }
 
+        /*
         public IResult Delete(PostCategory postCategory)
         {
             _postCategoryDal.Delete(postCategory);
             return new SuccessResult(Messages.CategoryDeleted);
+        }*/
+
+        public IResult Delete(PostCategory postCategory)
+        {
+            _postCategoryDal.DeleteById(w=>w.PostId==postCategory.PostId&& w.CategoryId==postCategory.CategoryId);
+            return new SuccessResult(Messages.CategoryDeleted);
         }
+        
 
         public IResult Update(PostCategory postCategory)//+++
         {
@@ -59,15 +67,35 @@ namespace Application.Bussiness.Concrete
                 CategoryId = postCategoryCreateDto.CategoryId,
                 PostId = postCategoryCreateDto.PostId
             };
+
+          var exist=  PostCategoryExists(postCategory);
+            if(exist.Success)
+            {
+                _postCategoryDal.MultipleAdd(postCategoryCreateDto);
+            }
             //_postCategoryDal.Add(postCategory);
-            _postCategoryDal.MultipleAdd(postCategoryCreateDto);
+            
             return new SuccessResult(Messages.CategoryAdded);
             
         }
 
+
+        public IResult PostCategoryExists(PostCategory postCategory)
+        {
+            //yazılan kategori var mı yok mu kontrol edilir.
+            var exist = _postCategoryDal.Get(w=>w.PostId==postCategory.PostId&&w.CategoryId==postCategory.CategoryId);
+
+            if (exist != null)
+            {
+                return new ErrorResult(Messages.CategoryAlreadyExists);//eğer kategori varsa ErrorDataResult döndüreceğiz.
+            }
+            return new SuccessResult();
+        }
+
+
         //******************************************************************
 
-            //Tüm postları listelemek için
+        //Tüm postları listelemek için
 
         //++++++++
         public IDataResult<List<PostCardListDto>> GetAll()

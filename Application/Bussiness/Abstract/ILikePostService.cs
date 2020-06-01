@@ -14,5 +14,6 @@ namespace Application.Bussiness.Abstract
         IDataResult<LikePostNumberStatusDto> GetNumberStatus(string postId);//like ve dislike sayıları çekmek için yazdım.
         string LikePostExists(LikePostCreateDto likePost);//gelen datanın db olup olmadığına bakılır.
         IResult Delete(LikePostCreateDto likePost);
+        IResult DeletePostLike(string postId);
     }
 }

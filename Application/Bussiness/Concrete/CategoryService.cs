@@ -49,7 +49,7 @@ namespace Application.Bussiness.Concrete
             return new SuccessDataResult<List<Category>>(_categoryDal.GetList().ToList());
         }
 
-        [ValidationAspect(typeof(CategoryValidator),Priority =1)]
+      //  [ValidationAspect(typeof(CategoryValidator),Priority =1)]
         public IResult Add(Category category)
         {
             //Bu alanı normalde böyle kullanabiliriz fakat her metot için böyle yazılmaktansa bu kod bloğu merkezileştirilerek daha pratik kullanılabilir.
@@ -83,5 +83,16 @@ namespace Application.Bussiness.Concrete
             return new SuccessResult(Messages.CategoryUpdated);
         }
 
+        public IResult CategoryExists(string categoryName)
+        {
+            //yazılan kategori var mı yok mu kontrol edilir.
+            var exist = _categoryDal.Get(c=>c.CategoryName.ToLower()==categoryName.ToLower());
+            
+            if (exist!=null)
+            {
+                return new ErrorResult(Messages.CategoryAlreadyExists);//eğer kategori varsa ErrorDataResult döndüreceğiz.
+            }
+            return new SuccessResult(); 
+        }
     }
 }

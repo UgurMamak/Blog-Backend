@@ -72,7 +72,7 @@ namespace Application.DataAccsess.Concrete.EntityFramework
                 {
                     return
                     context.Posts
-                    .Include(pc => pc.PostCategories).ThenInclude(c => c.Category)
+                    .Include(pc => pc.PostCategories).ThenInclude(c => c.Category).OrderByDescending(o=>o.Created)
                     .Select(se => new PostCardList2Dto
                     {
 
@@ -84,6 +84,8 @@ namespace Application.DataAccsess.Concrete.EntityFramework
                         UserId = se.UserId,
                         FirstName = se.User.FirstName,
                         LastName = se.User.LastName,
+                        IsActive=se.IsActive,
+                        IsDeleted=se.IsDeleted,
 
                         CommentNumber = context.Comments.Where(w => w.PostId == se.Id).Count(),
                         LikeNumber=context.LikePosts.Where(w=>w.PostId==se.Id && w.LikeStatus==true).Count(),
@@ -112,6 +114,10 @@ namespace Application.DataAccsess.Concrete.EntityFramework
                        UserId = se.UserId,
                        FirstName = se.User.FirstName,
                        LastName = se.User.LastName,
+                       IsActive = se.IsActive,
+                       IsDeleted = se.IsDeleted,
+                       CommentNumber = context.Comments.Where(w => w.PostId == se.Id).Count(),
+                       LikeNumber = context.LikePosts.Where(w => w.PostId == se.Id && w.LikeStatus == true).Count(),
 
                        postCategoryListDtos = new List<PostCategoryListDto>(
                            context.PostCategories.Where(w => w.PostId == se.Id)
@@ -142,6 +148,8 @@ namespace Application.DataAccsess.Concrete.EntityFramework
                       UserId = se.UserId,
                       FirstName = se.User.FirstName,
                       LastName = se.User.LastName,
+                      IsActive = se.IsActive,
+                      IsDeleted = se.IsDeleted,
                       postCategoryListDtos = new List<PostCategoryListDto>(
                           context.PostCategories
                           .Where(w => w.PostId == se.Id && w.CategoryId==categoryId)

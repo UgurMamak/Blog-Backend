@@ -13,7 +13,7 @@ namespace Application.Bussiness.Constants
         public static string CategoryAdded = "Kategori başarıyla eklendi";
         public static string CategoryDeleted = "Kategori başarıyla silindi";
         public static string CategoryUpdated = "Kategori başarıyla güncellendi";
-
+        public static string CategoryAlreadyExists = "Bu kategori zaten mevcut";
 
         public static string PostAdded = "Post başarıyla eklendi";
         public static string PostDeleted = "Post başarıyla silindi";
@@ -22,6 +22,7 @@ namespace Application.Bussiness.Constants
         public static string CommentAdded = "Yorum başarıyla eklendi";
         public static string CommentDeleted = "Yorum başarıyla silindi";
         public static string CommentUpdated = "Yorum başarıyla güncellendi";
+        public static string PostCategoryAlreadyExists = "Bu kategori postta zaten mevcut";
 
         public static string UserNotFound = "Kullanıcı Bulunamadı";
         public static string PasswordError = "Şifre Hatalı";
@@ -35,7 +36,7 @@ namespace Application.Bussiness.Constants
         public static string UserAlreadyExists = "Bu kullanıcı zaten mevcut";
         public static string UserRegistered = "Kullanıcı başarıyla kaydedildi";
         public static string AccessTokenCreated = "Access token başarıyla oluşturuldu";
-
+        public static string UserUpdated = "Kullanıcı bilgileri başarıyla güncellendi";
 
         public static string AuthorizationDenied = "Yetkiniz yok";
 

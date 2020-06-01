@@ -25,6 +25,12 @@ namespace Application.Persistence.Entity
 
         public string ImgName { get; set; }//Resimlerin adýný tutmak için oluþturuldu.
 
+        public string FacebookLink { get; set; }
+
+        public string TwitterLink { get; set; }
+
+        public string InstagramLink { get; set; }
+
         public List<Post> Posts { get; set; }//**********
         public List<LikePost> LikePosts { get; set; }//*******
     }

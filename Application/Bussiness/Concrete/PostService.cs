@@ -18,7 +18,7 @@ namespace Application.Bussiness.Concrete
         private IPostDal _postDal;
         private IPostCategoryService _postCategoryService;
         private ICommentService _commentService;
-        public PostService(IPostDal postDal, IPostCategoryService postCategoryService,ICommentService commentService)
+        public PostService(IPostDal postDal, IPostCategoryService postCategoryService, ICommentService commentService)
         {
             _postDal = postDal;
             _postCategoryService = postCategoryService;
@@ -27,7 +27,7 @@ namespace Application.Bussiness.Concrete
 
         [TransactionScopeAspect]
         public IDataResult<List<Post>> GetList()
-        {          
+        {
             return new SuccessDataResult<List<Post>>(_postDal.GetList().ToList());
         }
 
@@ -35,21 +35,34 @@ namespace Application.Bussiness.Concrete
         [TransactionScopeAspect]//+++
         public IResult Update(PostUpdateDto post)
         {
-            var post2 = new Post {
-                Content=post.Content,
-                Title=post.Title,
-                Updated=DateTime.Now,
-                Id=post.Id,
-                UserId=post.UserId
-            };
-           // _postDal.Update(post2);
+            /*
+            var post2 = new Post
+            {
+                Content = post.Content,
+                Title = post.Title,
+                Updated = DateTime.Now,
+                Id = post.Id,
+                UserId = post.UserId
+            };*/
+
             _postDal.Update2(post);
-            //return new SuccessResult(Messages.PostUpdated);
-            var postUpdate= new SuccessResult(Messages.PostUpdated);
-           // var postCategory = new PostCategory {PostId=post.Id,CategoryId=post.CategoryId };
-            var postCategory = new PostCategory {PostId=post.Id,CategoryId=post.CategoryId, Id=post.PostCategoryId };
-            _postCategoryService.Update(postCategory);
-            return new SuccessResult(Messages.PostUpdated);            
+            if(post.CategoryId!=null)
+            {
+                string[] category = post.CategoryId.Split("*");
+                foreach (var item in category)
+                {
+                    if (item != "")
+                    {
+                        var postCategory = new PostCategoryCreateDto { PostId = post.Id, CategoryId = item };
+                        _postCategoryService.Add(postCategory);
+                    }
+                }
+            }
+            
+
+            //var postCategory2 = new PostCategory {PostId=post.Id,CategoryId=post.CategoryId, Id=post.PostCategoryId };
+            // _postCategoryService.Update(postCategory2);
+            return new SuccessResult(Messages.PostUpdated);
         }
 
         [TransactionScopeAspect]
@@ -57,7 +70,7 @@ namespace Application.Bussiness.Concrete
         {
             _postCategoryService.DeleteByPostId(post.Id);
             _commentService.DeleteByPostId(post.Id);
-            _postDal.DeleteById(w=>w.Id==post.Id);                    
+            _postDal.DeleteById(w => w.Id == post.Id);
             return new SuccessResult(Messages.PostDeleted);
         }
 
@@ -70,15 +83,22 @@ namespace Application.Bussiness.Concrete
                 Content = postCreateDto.Content,
                 ImageName = imageName,
                 UserId = postCreateDto.UserId,
-                Created=DateTime.Now
+                Created = DateTime.Now
             };
             _postDal.Add(post);
             var postSave = new SuccessDataResult<Post>(post, Messages.UserRegistered);
-            var postCategory = new PostCategoryCreateDto { PostId = postSave.Data.Id, CategoryId = postCreateDto.CategoryId };
-            _postCategoryService.Add(postCategory);
+            string[] category = postCreateDto.CategoryId.Split("*");
+            foreach (var item in category)
+            {
+                if (item != "")
+                {
+                    var postCategory = new PostCategoryCreateDto { PostId = postSave.Data.Id, CategoryId = item };
+                    _postCategoryService.Add(postCategory);
+                }
+            }
             return new SuccessDataResult<Post>(post, Messages.PostAdded);
         }
-       
+
 
         [TransactionScopeAspect]//+++(post detay işlemi)
         public IDataResult<List<PostListDto2>> GetByPostId(string postId)
@@ -86,6 +106,11 @@ namespace Application.Bussiness.Concrete
             //return new SuccessDataResult<List<PostListDto>>(_postDal.GetAll(p => p.PostId == postId).ToList());
             return new SuccessDataResult<List<PostListDto2>>(_postDal.GetAll2(p => p.PostId == postId).ToList());
         }
+
+
+
+
+
 
     }
 }
