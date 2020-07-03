@@ -68,7 +68,7 @@ namespace Application.Bussiness.Concrete
         [TransactionScopeAspect]
         public IResult Delete(Post post)
         {
-            _postCategoryService.DeleteByPostId(post.Id);
+            _postCategoryService.DeleteByPostId(post.Id); 
             _commentService.DeleteByPostId(post.Id);
             _postDal.DeleteById(w => w.Id == post.Id);
             return new SuccessResult(Messages.PostDeleted);

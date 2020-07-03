@@ -11,6 +11,7 @@ namespace Application.Persistence.Dtos.PostDtos
         public string Title { get; set; }
         public string Content { get; set; }
         public DateTime Updated { get; set; }
+
         public string ImageName { get; set; }// eski image ismi
         public IFormFile Image { get; set; } //yeni gelen  image
 

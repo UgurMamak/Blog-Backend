@@ -112,7 +112,6 @@ namespace WebApi.Controllers
                 }
                 return BadRequest(result.Message);
             }
-
             return BadRequest();
             
         }

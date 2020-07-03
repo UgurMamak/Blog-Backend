@@ -20,7 +20,7 @@ namespace Application.Persistence.Dtos.CommentDtos
             ImageName = comment.User.ImgName;
 
             PostId = comment.PostId;
-            created = comment.Created;
+            created =comment.Created.ToString();
         }
 
 
@@ -31,7 +31,8 @@ namespace Application.Persistence.Dtos.CommentDtos
         public string LastName { get; set; }//yorumu yapan 
         public string ImageName { get; set; }//yorumu yapan 
         public string PostId { get; set; }
-        public DateTime created { get; set; }
+       // public DateTime created { get; set; }
+        public string created { get; set; }
 
     }
 }

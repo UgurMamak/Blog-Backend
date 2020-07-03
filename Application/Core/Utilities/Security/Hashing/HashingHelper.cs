@@ -17,7 +17,7 @@ namespace Application.Core.Utilities.Security.Hashing
                 //burada ortaya çıkan değerler parametre olarak verilen değerlere atanmış oldu.(out byte[] passwordHash, out byte[] passwordSalt)
                 passwordSalt = hmac.Key;//anahtarımız yani bize passwordsalt oluşturacak.
                 passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));//
-            }
+            } 
         }
 
         //Girilen password ile DB'deki password ile karşılaştıracak.

@@ -18,6 +18,8 @@ namespace Application.Persistence
        }
         */
 
+
+
         public DbSet<User> Users { get; set; }
 
         public DbSet<Post> Posts { get; set; }
@@ -59,86 +61,7 @@ namespace Application.Persistence
             //modelBuilder.ApplyConfiguration(new PostCategorySeedData());
             // modelBuilder.ApplyConfiguration(new CommentSeedData());
             ///modelBuilder.ApplyConfiguration(new LikePostSeedData());
-
-
-
-
-            /*
-              modelBuilder
-                .Entity<User>(e =>
-                {
-                    e.ToTable("User");
-                    e.HasKey(a => a.Id);
-                });
-
-              modelBuilder
-                .Entity<Category>(e =>
-                {
-                    e.ToTable("Category");
-                    e.HasKey(a => a.Id);
-                });
-
-              modelBuilder
-                .Entity<Post>(e =>
-                {
-                    e.ToTable("Post");
-                    e.HasKey(a => a.Id);
-
-                    e
-                .HasOne(a => a.User)
-                .WithMany(a => a.Posts)
-                .HasForeignKey(a => a.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-
-                    e.HasMany(a => a.PostCategories)
-              .WithOne(a => a.Post)
-              .HasForeignKey(a => a.PostId)
-              .OnDelete(DeleteBehavior.Cascade);
-
-
-                });
-
-              modelBuilder
-                .Entity<PostCategory>(e =>
-                {
-                    e.ToTable("PostCategory");
-                    e.HasKey(a => a.Id);
-
-                    e
-                .HasOne(a => a.Category)
-                .WithMany(a => a.PostCategories)
-                .HasForeignKey(a => a.CategoryId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-
-                             // e.HasOne(a =>a.Post)
-                             // .WithMany(a =>a.PostCategories)
-                             // .HasForeignKey(a =>a.PostId)
-                              //.OnDelete(DeleteBehavior.Cascade);
-
-                });
-
-
-              modelBuilder
-                .Entity<Comment>(e =>
-                {
-                    e.ToTable("Comment");
-                    e.HasKey(a => a.Id);
-
-                    e
-                .HasOne(a => a.User)
-                .WithMany()
-                .HasForeignKey(a => a.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-                    e
-                .HasOne(a => a.Post)
-                .WithMany(a => a.Comments)
-                .HasForeignKey(a => a.PostId)
-                .OnDelete(DeleteBehavior.Restrict);
-                });
-                */
+       
         }
     }
 }

@@ -27,7 +27,6 @@ namespace Application.Bussiness.Concrete
         public List<OperationClaim> GetClaims(User user)
         {
             return _userDal.GetClaims(user);
-
         }
 
         public void Add(User user)
@@ -43,16 +42,13 @@ namespace Application.Bussiness.Concrete
         public IDataResult<List<User>> GetList()
         {
            var users= _userDal.GetList().ToList();
-            return new SuccessDataResult<List<User>>(_userDal.GetList().ToList());
-           
+            return new SuccessDataResult<List<User>>(_userDal.GetList().ToList());  
         }
 
         //+++++++ Admin tümkullanıcıları görür
         public IDataResult<List<UserGetAllDto>> UserGetAll()
-        {
-          
+        {         
             return new SuccessDataResult<List<UserGetAllDto>>(_userDal.GetAllUser().ToList());
-
         }
 
         //**************

@@ -9,7 +9,6 @@ namespace Application.Core.Aspects.Autofac.Transaction
 {
     public class TransactionScopeAspect : MethodInterception //Uygulamanınne zaman çalışacağını belirtmek için bundan implement ediyoruz
     {
-        //
         public override void Intercept(IInvocation invocation)
         {
             using (TransactionScope transactionScope = new TransactionScope())

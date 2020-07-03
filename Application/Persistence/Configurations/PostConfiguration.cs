@@ -15,7 +15,7 @@ namespace Application.Persistence.Congigurations
             builder.ToTable("Post");
             builder.HasKey(a => a.Id);
 
-            builder.HasOne(a => a.User)
+            builder.HasOne(a => a.User) 
             .WithMany(a => a.Posts)
             .HasForeignKey(a => a.UserId)
             .OnDelete(DeleteBehavior.Cascade);

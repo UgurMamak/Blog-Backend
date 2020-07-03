@@ -22,13 +22,9 @@ namespace Application.Persistence.Entity
         public byte[] PasswordSalt { get; set; }//girilen þifreyi kuvvetlendirmektedir.
         public byte[] PasswordHash { get; set; }
         public string Email { get; set; }//*********
-
         public string ImgName { get; set; }//Resimlerin adýný tutmak için oluþturuldu.
-
         public string FacebookLink { get; set; }
-
         public string TwitterLink { get; set; }
-
         public string InstagramLink { get; set; }
 
         public List<Post> Posts { get; set; }//**********

@@ -10,15 +10,9 @@ namespace Application.Bussiness.Abstract
 {
     public interface IUserService
     {
-        /*
+    
+
         IDataResult<List<User>> GetList();//*****
-        IDataResult<User> GetById(string userId);//***********
-        //IResult Add(User user);//*****
-        IResult Delete(User user);//*****
-        IResult Update(User user);//*****
-        */
-		
-		IDataResult<List<User>> GetList();//*****
 
         //operasyon ekledik.
         List<OperationClaim> GetClaims(User user); //user'ın sahip olduğu claimleri(yetkileri) rolleri getirmek için oluşturduk.

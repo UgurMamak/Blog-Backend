@@ -30,7 +30,8 @@ namespace Application.DataAccsess.Concrete.EntityFramework
                         PostId = se.PostId,
                         Id = se.Id,//commentId
                         Content = se.Content,
-                        created = Convert.ToDateTime(se.Created.ToShortTimeString()),
+                        //created = Convert.ToDateTime(se.Created.ToShortTimeString()),
+                        created = se.Created.ToString("dd MMMM yyyy HH:mm"),
                     })
                    .Where(filter)
                     .ToList();

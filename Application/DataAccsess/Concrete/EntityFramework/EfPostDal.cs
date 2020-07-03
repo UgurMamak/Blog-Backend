@@ -56,7 +56,8 @@ namespace Application.Persistence.EntityFramework
                                                             FirstName = se.User.FirstName,
                                                             LastName = se.User.LastName,
                                                             ImageName = se.User.ImgName,
-                                                            created = Convert.ToDateTime(se.Created.ToShortDateString()),
+                                                            //  created = Convert.ToDateTime(se.Created.ToShortDateString()),
+                                                            created = se.Created.ToString("dd MMMM yyyy HH:mm"),
                                                             PostId = se.PostId
 
                                                         }))
@@ -74,7 +75,8 @@ namespace Application.Persistence.EntityFramework
                         Title = se.Title,
                         ImageName = se.ImageName,
                         Content = se.Content,
-                        Created = Convert.ToDateTime(se.Created.ToShortDateString()),
+                        // Created = Convert.ToDateTime(se.Created.ToShortDateString()), 
+                        Created = se.Created.ToString("dd MMMM yyyy HH:mm"), 
 
                         UserId = se.UserId,
                         FirstName = se.User.FirstName,
@@ -95,7 +97,8 @@ namespace Application.Persistence.EntityFramework
                                                             FirstName = se.User.FirstName,
                                                             LastName = se.User.LastName,
                                                             ImageName = se.User.ImgName,
-                                                            created = Convert.ToDateTime(se.Created.ToShortTimeString()),
+                                                            created = se.Created.ToString("dd MMMM yyyy HH:mm"),
+                                                           // created = Convert.ToDateTime(se.Created.ToShortTimeString()),
                                                             PostId = se.PostId
                                                         }))
                     })

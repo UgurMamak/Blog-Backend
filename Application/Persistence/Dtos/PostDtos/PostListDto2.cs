@@ -16,7 +16,8 @@ namespace Application.Persistence.Dtos.PostDtos
         public string Title { get; set; }//Post
         public string Content { get; set; }//Post
         public string ImageName { get; set; }//Post
-        public DateTime Created { get; set; }//Post
+       // public DateTime Created { get; set; }//Post
+        public string Created { get; set; }//Post
 
         public string UserId { get; set; }//User
         public string FirstName { get; set; }//User 
